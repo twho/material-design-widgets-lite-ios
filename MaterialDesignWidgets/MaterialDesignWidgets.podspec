@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "MaterialDesignWidgets"
-  spec.version      = "0.0.1"
+  spec.version      = "0.0.5"
   spec.summary      = "Light implementation of material design widgets."
 
   # This description is used to generate tags and improve search results.
@@ -85,7 +85,7 @@ Pod::Spec.new do |spec|
   #  Not including the public_header_files will make all headers public.
   #
 
-  spec.source_files  = "MaterialDesignWidgets", "MaterialDesignWidgets/**/*.{h,m}"
+spec.source_files  = "MaterialDesignWidgets", "MaterialDesignWidgets/**/*.{swift,h,m}"
   spec.exclude_files = "MaterialDesignWidgets/MaterialDesignWidgetsDemo/**", "MaterialDesignWidgetsDemo/**", "MaterialDesignWidgets/MaterialDesignWidgetsTests/**"
 
   # spec.public_header_files = "Classes/**/*.h"

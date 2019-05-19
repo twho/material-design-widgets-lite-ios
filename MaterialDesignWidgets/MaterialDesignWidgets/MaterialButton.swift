@@ -128,9 +128,11 @@ open class MaterialButton: UIButton {
         setupLayer()
     }
     
-    public func setStyles(textColor: UIColor? = nil, textSize: CGFloat = 17.0, bold: Bool = true) {
+    public func setTextStyles(textColor: UIColor? = nil, font: UIFont? = nil) {
         self.setTitleColor(textColor, for: .normal)
-        self.titleLabel?.font = bold ? UIFont.boldSystemFont(ofSize: textSize) : UIFont.systemFont(ofSize: textSize)
+        if let font = font {
+            self.titleLabel?.font = font
+        }
     }
     
     required public init?(coder aDecoder: NSCoder) {
