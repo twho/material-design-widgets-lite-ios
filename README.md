@@ -7,7 +7,7 @@ This framework give you full flexibility to apply any material design widget you
 [![Generic badge](https://img.shields.io/badge/Swift-5.0-orange.svg)](https://shields.io/) [![Generic badge](https://img.shields.io/badge/iOS-11.0+-blue.svg)](https://shields.io/)  [![Generic badge](https://img.shields.io/badge/Version-0.1.0-orange.svg)](https://shields.io/) [![Generic badge](https://img.shields.io/badge/pod-0.1.0-lightgrey.svg)](https://shields.io/) [
 ![Generic badge](https://img.shields.io/badge/platform-ios-green.svg)](https://shields.io/) 
 
-<img src="overview.gif" alt="overview" width="250"/>
+<img src="gif/overview.gif" alt="overview" width="250"/>
 
 You may download **MaterialDesignWidgetsDemo** to see how its used in your app. 
 
@@ -33,7 +33,7 @@ Files  needed:
 let btnSample1 = MaterialButton(text: "Sample1", cornerRadius: 15.0)
 let btnSample2 = MaterialButton(text: "Sample2", textColor: .black, bgColor: .white)
 ```
-<img src="button.gif" alt="button" width="350"/>
+<img src="gif/button.gif" alt="button" width="350"/>
 
 #### Loading Button
 ```swift
@@ -45,20 +45,21 @@ loadingBtn.addTarget(self, action: #selector(tapLoadingButton(sender:)), for: .t
 	sender.isLoading ? sender.showLoader(userInteraction: true) : sender.hideLoader()
 }
 ```
-<img src="loadingButton.gif" alt="loadingButton" width="350"/>
+<img src="gif/loadingButton.gif" alt="loadingButton" width="350"/>
 
 #### Shadow Button
 ```swift
 let btnShadow = MaterialButton(text: "Shadow Button", cornerRadius: 15.0, withShadow: true)
 ```
-<img src="shadowButton.gif" alt="shadowButton" width="350"/>
+<img src="gif/shadowButton.gif" alt="shadowButton" width="350"/>
 
 #### Vertical Aligned Button
 ```swift
 let img = UIImage(named: "Your image name")
-let btnVertical = MaterialVerticalButton(icon: img, title: "Fill", foregroundColor: .black, bgColor: .white)
+let btnV = MaterialVerticalButton(icon: img, title: "Fill", foregroundColor: .black, bgColor: .white)
 ```
-<img src="verticalButton.gif" alt="verticalButton" width="350"/>
+
+<img src="gif/verticalButton.gif" alt="verticalButton" width="350"/>
 
 ### Segmented Control
 Files  needed:
@@ -79,14 +80,14 @@ sgFilled.backgroundColor = .lightGray
 sgFilled.setCornerBorder(cornerRadius: 18.0)
 ```
 
-<img src="segmentFill.gif" alt="segmentFill" width="350"/>
+<img src="gif/segmentFill.gif" alt="segmentFill" width="350"/>
 
 #### Outline
 ```swift
 let sgOutline = MaterialSegmentedControl(segments: segments, selectorStyle: .line, textColor: .black, selectorTextColor: .white, selectorColor: .black)
 ```
 
-<img src="segmentOutline.gif" alt="segmentOutline" width="350"/>
+<img src="gif/segmentOutline.gif" alt="segmentOutline" width="350"/>
 
 ### TextField
 Files  needed:
@@ -96,7 +97,7 @@ Files  needed:
 let textField = MaterialTextField(hint: "TextField", textColor: .black, bgColor: .white)
 ```
 
-<img src="textField.gif" alt="textField" width="350"/>
+<img src="gif/textField.gif" alt="textField" width="350"/>
 
 ### Loading Indicator
 Files  needed:
@@ -107,7 +108,7 @@ indicatorBlack.startAnimating()
 let indicatorGray = MaterialLoadingIndicator(radius: 15.0, color: .gray)
 indicatorGray.startAnimating()
 ```
-<img src="loading.gif" alt="loading" width="350"/>
+<img src="gif/loading.gif" alt="loading" width="350"/>
 
 ## Installation
 
