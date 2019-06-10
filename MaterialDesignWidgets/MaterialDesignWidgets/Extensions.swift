@@ -108,6 +108,36 @@ extension UIImage {
         guard let cgImage = image?.cgImage else { return nil}
         self.init(cgImage: cgImage)
     }
+    
+    /**
+     Change the color of the image.
+     
+     - Parameter color: The color to be set to the UIImage.
+     
+     Returns an UIImage with specified color
+     */
+    public func colored(_ color: UIColor?) -> UIImage? {
+        if let newColor = color {
+            UIGraphicsBeginImageContextWithOptions(size, false, scale)
+            
+            let context = UIGraphicsGetCurrentContext()!
+            context.translateBy(x: 0, y: size.height)
+            context.scaleBy(x: 1.0, y: -1.0)
+            context.setBlendMode(.normal)
+            
+            let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+            context.clip(to: rect, mask: cgImage!)
+            
+            newColor.setFill()
+            context.fill(rect)
+            
+            let newImage = UIGraphicsGetImageFromCurrentImageContext()!
+            UIGraphicsEndImageContext()
+            newImage.accessibilityIdentifier = accessibilityIdentifier
+            return newImage
+        }
+        return self
+    }
 }
 
 // MARK: UIView
@@ -142,5 +172,34 @@ extension UIView {
         self.layer.shadowRadius = shadowRadius
         self.layer.masksToBounds = true
         self.clipsToBounds = false
+    }
+    
+    /**
+     Remove all subviews.
+     */
+    public func removeSubviews() {
+        self.subviews.forEach {
+            $0.removeFromSuperview()
+        }
+    }
+}
+
+extension UIStackView {
+    
+    /**
+     Convenient initializer.
+     
+     - Parameter arrangedSubviews: all arranged subviews to be put to the stack.
+     - Parameter axis: The arranged axis of the stack view.
+     - Parameter distribution: The distribution of the stack view.
+     - Parameter spacing: The spacing between each view in the stack view.
+     */
+    convenience init(arrangedSubviews: [UIView]? = nil, axis: NSLayoutConstraint.Axis, distribution: UIStackView.Distribution, spacing: CGFloat) {
+        if let arrangedSubviews = arrangedSubviews {
+            self.init(arrangedSubviews: arrangedSubviews)
+        } else {
+            self.init()
+        }
+        (self.axis, self.spacing, self.distribution) = (axis, spacing, distribution)
     }
 }
