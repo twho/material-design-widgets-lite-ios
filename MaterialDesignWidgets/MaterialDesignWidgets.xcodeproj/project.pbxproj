@@ -25,6 +25,7 @@
 		301E31732290F20C000E9BB1 /* MaterialDesignWidgets.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 301E3131228E6501000E9BB1 /* MaterialDesignWidgets.framework */; };
 		301E31742290F20C000E9BB1 /* MaterialDesignWidgets.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 301E3131228E6501000E9BB1 /* MaterialDesignWidgets.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		301E31792290F8E1000E9BB1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301E31782290F8E1000E9BB1 /* Extensions.swift */; };
+		30EF3A9122AD8858008948A6 /* MaterialSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EF3A9022AD8858008948A6 /* MaterialSegmentedControl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +81,7 @@
 		301E316B228F52E4000E9BB1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		301E3171228F5619000E9BB1 /* MaterialButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialButton.swift; sourceTree = "<group>"; };
 		301E31782290F8E1000E9BB1 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		30EF3A9022AD8858008948A6 /* MaterialSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialSegmentedControl.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +138,7 @@
 				301E3171228F5619000E9BB1 /* MaterialButton.swift */,
 				301E3155228F5149000E9BB1 /* MaterialVerticalButton.swift */,
 				301E314F228E658E000E9BB1 /* MaterialLoadingIndicator.swift */,
+				30EF3A9022AD8858008948A6 /* MaterialSegmentedControl.swift */,
 				301E3157228F5246000E9BB1 /* MaterialTableViewCell.swift */,
 				301E3153228E6885000E9BB1 /* MaterialTextField.swift */,
 				301E3151228E65CF000E9BB1 /* Extensions.swift */,
@@ -316,6 +319,7 @@
 				301E314C228E650F000E9BB1 /* RippleLayer.swift in Sources */,
 				301E3154228E6885000E9BB1 /* MaterialTextField.swift in Sources */,
 				301E3150228E658E000E9BB1 /* MaterialLoadingIndicator.swift in Sources */,
+				30EF3A9122AD8858008948A6 /* MaterialSegmentedControl.swift in Sources */,
 				301E3152228E65CF000E9BB1 /* Extensions.swift in Sources */,
 				301E3158228F5246000E9BB1 /* MaterialTableViewCell.swift in Sources */,
 			);

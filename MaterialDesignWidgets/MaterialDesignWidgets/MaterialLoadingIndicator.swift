@@ -40,6 +40,7 @@ open class MaterialLoadingIndicator: UIView {
         self.init()
         self.radius = radius
         self.color = color
+        setup()
     }
     
     public override init(frame: CGRect) {
