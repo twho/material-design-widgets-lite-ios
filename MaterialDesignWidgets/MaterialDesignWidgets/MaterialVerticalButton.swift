@@ -104,6 +104,7 @@ open class MaterialVerticalButton: UIControl {
             label.font = font
         }
         self.cornerRadius = cornerRadius
+        self.setCornerBorder(color: bgColor, cornerRadius: cornerRadius)
         self.backgroundColor = bgColor
         setupLayer()
         addViews()

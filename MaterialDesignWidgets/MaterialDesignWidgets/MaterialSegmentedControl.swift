@@ -1,6 +1,6 @@
 //
-//  CustomSegmentedContrl.swift
-//  CustomSEgmentedControl
+//  MaterialSegmentedControl.swift
+//  MaterialDesignWidgets
 //
 //  Created by Michael Ho on 06/09/19.
 //  Copyright © 2019 Michael Ho. All rights reserved.
@@ -87,7 +87,7 @@ open class MaterialSegmentedControl: UIControl {
         }
         
         // Create a StackView
-        stackView = UIStackView(arrangedSubviews: segments, axis: .horizontal, distribution: .fillProportionally, spacing: 10.0)
+        stackView = UIStackView(arrangedSubviews: segments, axis: .horizontal, distribution: .fillEqually, spacing: 10.0)
         stackView.alignment = .fill
         
         selector = UIView(frame: .zero)
@@ -101,7 +101,7 @@ open class MaterialSegmentedControl: UIControl {
         case .line:
             selector.setCornerBorder(color: selectorColor, borderWidth: 1.5)
         }
-
+        
         self.removeSubviews()
         self.addSubview(selector)
         selector.translatesAutoresizingMaskIntoConstraints = false
@@ -115,14 +115,15 @@ open class MaterialSegmentedControl: UIControl {
         
         selector.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         selector.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        if let selector = selector, let first = stackView.arrangedSubviews.first {
-            self.addConstraint(NSLayoutConstraint(item: selector, attribute: .width, relatedBy: .equal, toItem: first, attribute: .width, multiplier: 1.0, constant: 0.0))
-        }
         
         stackView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         stackView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         stackView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        
+        if let selector = selector, let first = stackView.arrangedSubviews.first {
+            self.addConstraint(NSLayoutConstraint(item: selector, attribute: .width, relatedBy: .equal, toItem: first, attribute: .width, multiplier: 1.0, constant: 0.0))
+        }
         self.layoutIfNeeded()
     }
     
@@ -136,22 +137,21 @@ open class MaterialSegmentedControl: UIControl {
                 selectedSegmentIndex = idx
                 btn.setImage(image?.colored(selectorTextColor))
                 btn.setTitleColor(selectorStyle == .line ? textColor : selectorTextColor, for: .normal)
-                moveView(selector, from: selector.frame.origin, to: btn.frame.origin)
+                moveView(selector, toView: btn)
             }
         }
         sendActions(for: .valueChanged)
     }
     
-    open func moveView(_ view: UIView, duration: Double = 0.5, completion: ((Bool) -> Void)? = nil,
-                       from: CGPoint, to: CGPoint) {
-        view.transform = CGAffineTransform(translationX: from.x, y: from.y)
+    open func moveView(_ view: UIView, duration: Double = 0.5, completion: ((Bool) -> Void)? = nil, toView: UIView) {
+        view.transform = CGAffineTransform(translationX: view.frame.origin.x, y: view.frame.origin.y)
         UIView.animate(withDuration: duration,
                        delay: 0,
                        usingSpringWithDamping: 0.8,
                        initialSpringVelocity: 0.1,
                        options: .curveEaseOut,
                        animations: { () -> Void in
-                        view.transform = CGAffineTransform(translationX: to.x, y: to.y)
+                        view.transform = CGAffineTransform(translationX: toView.frame.origin.x, y: toView.frame.origin.y)
         }, completion: completion)
     }
 }
