@@ -89,6 +89,13 @@ let sgOutline = MaterialSegmentedControl(segments: segments, selectorStyle: .lin
 
 <img src="gif/segmentOutline.gif" alt="segmentOutline" width="350"/>
 
+#### Line
+```swift
+let sgLine = MaterialSegmentedControl(selectorStyle: .line, textColor: .black, selectorTextColor: .black, selectorColor: .black, bgColor: .white)
+```
+
+<img src="gif/segmentLine.gif" alt="segmentLine" width="350"/>
+
 ### TextField
 Files  needed:
 1. RippleLayer.swift
