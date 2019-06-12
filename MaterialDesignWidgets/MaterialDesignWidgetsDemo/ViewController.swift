@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     private var segmenteldControl: UISegmentedControl!
     private let widgets: [WidgetType] = [
         .textField,
+        .segmentedControlOutline,
         .segmentedControlLine,
         .segmentedControlFill,
         .loadingIndicator,
@@ -55,9 +56,15 @@ class ViewController: UIViewController {
             if type == .loadingButton, let loadingBtn = type.widget as? MaterialButton {
                 loadingBtn.addTarget(self, action: #selector(tapLoadingButton(sender:)), for: .touchUpInside)
                 stackView.addArrangedSubview(loadingBtn)
-            } else if (type == .segmentedControlLine || type == .segmentedControlFill),
-                let segmentedControl = type.widget as? MaterialSegmentedControl {
-                resetSegments(segmentedControl)
+            } else if let segmentedControl = type.widget as? MaterialSegmentedControl {
+                switch type {
+                case .segmentedControlFill, .segmentedControlOutline:
+                    setSampleSegments(segmentedControl, 18.0)
+                case .segmentedControlLine:
+                    setSampleSegments(segmentedControl, 0.0)
+                default:
+                    continue
+                }
                 stackView.addArrangedSubview(segmentedControl)
             } else {
                 stackView.addArrangedSubview(type.widget)
@@ -71,11 +78,11 @@ class ViewController: UIViewController {
         self.view.layoutIfNeeded()
     }
     
-    private func resetSegments(_ segmentedControl: MaterialSegmentedControl) {
-        segmentedControl.segments = []
+    private func setSampleSegments(_ segmentedControl: MaterialSegmentedControl, _ cornerRadius: CGFloat) {
         for i in 0..<3 {
-            // Set the corner radius to the half of the row height, button background needs to be clear.
-            let button = MaterialButton(text: "Segment \(i)", textColor: .gray, bgColor: .clear, cornerRadius: 18.0)
+            // Button background needs to be clear, it will be set to clear in segmented control anyway.
+            let button = MaterialButton(text: "Segment \(i)", textColor: .gray, bgColor: .clear, cornerRadius: cornerRadius)
+            button.rippleLayerAlpha = 0.15
             segmentedControl.segments.append(button)
         }
     }
@@ -100,10 +107,10 @@ class ViewController: UIViewController {
         super.viewDidLayoutSubviews()
         let height = self.view.frame.height
         let width = self.view.frame.width
-        self.segmenteldControl.setConstraintsToView(top: self.view, tConst: 0.1*height, left: self.view, lConst: 0.05*width, right: self.view, rConst: -0.05*width)
+        self.segmenteldControl.setConstraintsToView(top: self.view, tConst: 0.08*height, left: self.view, lConst: 0.05*width, right: self.view, rConst: -0.05*width)
         self.stackView.setConstraintsToView(left: self.view, lConst: 0.05*width, right: self.view, rConst: -0.05*width)
-        self.segmenteldControl.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.05).isActive = true
-        self.view.addConstraint(NSLayoutConstraint(item: self.stackView!, attribute: .top, relatedBy: .equal, toItem: segmenteldControl, attribute: .bottom, multiplier: 1.0, constant: 0.05*height))
+        self.segmenteldControl.heightAnchor.constraint(equalToConstant: 30.0).isActive = true
+        self.view.addConstraint(NSLayoutConstraint(item: self.stackView!, attribute: .top, relatedBy: .equal, toItem: segmenteldControl, attribute: .bottom, multiplier: 1.0, constant: 0.03*height))
         self.view.layoutIfNeeded()
     }
 }
@@ -115,6 +122,7 @@ enum WidgetType: String {
     case verticalButton = "Vertical Aligned Button"
     case textField = "Material Design TextField"
     case loadingIndicator = "Loading Indicator"
+    case segmentedControlOutline = "Segmented Control - Outline"
     case segmentedControlLine = "Segmented Control - Line"
     case segmentedControlFill = "Segmented Control - Fill"
     
@@ -149,20 +157,15 @@ enum WidgetType: String {
             indicatorGray.startAnimating()
             let stack = UIStackView(arrangedSubviews: [indicatorBlack, indicatorGray], axis: .horizontal, distribution: .fillEqually, spacing: 10.0)
             return stack
-        case .segmentedControlLine, .segmentedControlFill:
-            var segments = [UIButton]()
-            let cornerRadius: CGFloat = 18.0
-            for i in 0..<3 {
-                // Button background needs to be clear, it will be set to clear in segmented control anyway.
-                let button = MaterialButton(text: "Segment \(i)", textColor: .gray, bgColor: .clear, cornerRadius: cornerRadius)
-                segments.append(button)
-            }
-            let segmentControl = MaterialSegmentedControl(segments: segments, selectorStyle: self == .segmentedControlLine ? .line : .fill, textColor: .black, selectorTextColor: .white, selectorColor: .black)
-            segmentControl.backgroundColor = self == .segmentedControlLine ? .white : .lightGray
-            if self == .segmentedControlFill {
-                segmentControl.setCornerBorder(cornerRadius: cornerRadius)
-            }
+        case .segmentedControlFill:
+            let segmentControl = MaterialSegmentedControl(selectorStyle: .fill, textColor: .black, selectorTextColor: .white, selectorColor: .black, bgColor: .lightGray)
+            segmentControl.setCornerBorder(cornerRadius: 18.0)
             return segmentControl
+        case .segmentedControlOutline:
+            return MaterialSegmentedControl(selectorStyle: .outline, textColor: .black, selectorTextColor: .black, selectorColor: .black, bgColor: .white)
+        case .segmentedControlLine:
+            return MaterialSegmentedControl(selectorStyle: .line, textColor: .black, selectorTextColor: .black, selectorColor: .black, bgColor: .white)
         }
     }
 }
+
