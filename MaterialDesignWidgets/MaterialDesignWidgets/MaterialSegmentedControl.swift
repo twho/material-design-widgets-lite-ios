@@ -35,6 +35,7 @@ open class MaterialSegmentedControl: UIControl {
     
     public enum SelectorStyle {
         case fill
+        case outline
         case line
     }
     var selectorStyle: SelectorStyle = .line {
@@ -63,16 +64,20 @@ open class MaterialSegmentedControl: UIControl {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience public init(segments: [UIButton], selectorStyle: SelectorStyle = .line, textColor: UIColor = .gray, selectorTextColor: UIColor = .white, selectorColor: UIColor = .gray) {
+    convenience public init(segments: [UIButton] = [], selectorStyle: SelectorStyle = .line, textColor: UIColor = .gray, selectorTextColor: UIColor = .white, selectorColor: UIColor = .gray, bgColor: UIColor = .clear) {
         self.init(frame: .zero)
+        
         self.segments = segments
         self.selectorStyle = selectorStyle
         self.textColor = textColor
         self.selectorTextColor = selectorTextColor
         self.selectorColor = selectorColor
+        self.backgroundColor = bgColor
     }
     
     func updateView() {
+        guard segments.count > 0 else { return }
+        
         subviews.forEach { (view) in
             view.removeFromSuperview()
         }
@@ -81,9 +86,6 @@ open class MaterialSegmentedControl: UIControl {
             segments[idx].backgroundColor = .clear
             segments[idx].addTarget(self, action: #selector(buttonTapped(button:)), for: .touchUpInside)
             segments[idx].tag = idx
-        }
-        if let firstBtn = segments.first {
-            buttonTapped(button: firstBtn)
         }
         
         // Create a StackView
@@ -96,9 +98,9 @@ open class MaterialSegmentedControl: UIControl {
         }
         
         switch selectorStyle {
-        case .fill:
+        case .fill, .line:
             selector.backgroundColor = selectorColor
-        case .line:
+        case .outline:
             selector.setCornerBorder(color: selectorColor, borderWidth: 1.5)
         }
         
@@ -107,14 +109,23 @@ open class MaterialSegmentedControl: UIControl {
         selector.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        if let firstBtn = segments.first {
+            buttonTapped(button: firstBtn)
+        }
+        
         self.layoutSubviews()
     }
     
     override open func layoutSubviews() {
         super.layoutSubviews()
         
-        selector.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         selector.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        switch selectorStyle {
+        case .fill, .outline:
+            selector.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        case .line:
+            selector.heightAnchor.constraint(equalToConstant: 3.0).isActive = true
+        }
         
         stackView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
@@ -144,14 +155,14 @@ open class MaterialSegmentedControl: UIControl {
     }
     
     open func moveView(_ view: UIView, duration: Double = 0.5, completion: ((Bool) -> Void)? = nil, toView: UIView) {
-        view.transform = CGAffineTransform(translationX: view.frame.origin.x, y: view.frame.origin.y)
+        view.transform = CGAffineTransform(translationX: view.frame.origin.x, y: 0.0)
         UIView.animate(withDuration: duration,
                        delay: 0,
                        usingSpringWithDamping: 0.8,
                        initialSpringVelocity: 0.1,
                        options: .curveEaseOut,
                        animations: { () -> Void in
-                        view.transform = CGAffineTransform(translationX: toView.frame.origin.x, y: toView.frame.origin.y)
+                        view.transform = CGAffineTransform(translationX: toView.frame.origin.x, y: 0.0)
         }, completion: completion)
     }
 }

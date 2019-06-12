@@ -56,6 +56,11 @@ open class MaterialButton: UIButton {
             rippleLayer.setRippleColor(color: rippleLayerColor)
         }
     }
+    @IBInspectable open var rippleLayerAlpha: CGFloat = 0.3 {
+        didSet {
+            rippleLayer.setRippleColor(color: rippleLayerColor, withRippleAlpha: rippleLayerAlpha, withBackgroundAlpha: rippleLayerAlpha)
+        }
+    }
     @IBInspectable open var backgroundAnimationEnabled: Bool = true {
         didSet {
             rippleLayer.backgroundAnimationEnabled = backgroundAnimationEnabled
