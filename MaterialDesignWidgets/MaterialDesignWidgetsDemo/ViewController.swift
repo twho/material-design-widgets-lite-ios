@@ -78,6 +78,12 @@ class ViewController: UIViewController {
         self.view.layoutIfNeeded()
     }
     
+    /**
+     Create sample segments for the segmented control.
+     
+     - Parameter segmentedControl: The segmented control to put these segments into.
+     - Parameter cornerRadius:     The corner radius to be set to segments and selectors.
+     */
     private func setSampleSegments(_ segmentedControl: MaterialSegmentedControl, _ cornerRadius: CGFloat) {
         for i in 0..<3 {
             // Button background needs to be clear, it will be set to clear in segmented control anyway.
@@ -164,6 +170,7 @@ enum WidgetType: String {
         case .segmentedControlOutline:
             return MaterialSegmentedControl(selectorStyle: .outline, textColor: .black, selectorTextColor: .black, selectorColor: .black, bgColor: .white)
         case .segmentedControlLine:
+            let seg = MaterialSegmentedControl(selectorStyle: .line, textColor: .black, selectorTextColor: .black, selectorColor: .black, bgColor: .white)
             return MaterialSegmentedControl(selectorStyle: .line, textColor: .black, selectorTextColor: .black, selectorColor: .black, bgColor: .white)
         }
     }

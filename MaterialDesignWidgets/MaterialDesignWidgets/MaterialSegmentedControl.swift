@@ -17,7 +17,7 @@ open class MaterialSegmentedControl: UIControl {
     open var selector: UIView!
     open var segments = [UIButton]() {
         didSet {
-            updateView()
+            updateViews()
         }
     }
     
@@ -27,9 +27,10 @@ open class MaterialSegmentedControl: UIControl {
         }
     }
     
-    @IBInspectable var textColor: UIColor = .gray {
+    @IBInspectable
+    public var textColor: UIColor = .gray {
         didSet {
-            updateView()
+            updateViews()
         }
     }
     
@@ -38,21 +39,23 @@ open class MaterialSegmentedControl: UIControl {
         case outline
         case line
     }
-    var selectorStyle: SelectorStyle = .line {
+    public var selectorStyle: SelectorStyle = .line {
         didSet {
-            updateView()
+            updateViews()
         }
     }
     
-    @IBInspectable var selectorColor: UIColor = .gray {
+    @IBInspectable
+    public var selectorColor: UIColor = .gray {
         didSet {
-            updateView()
+            updateViews()
         }
     }
     
-    @IBInspectable var selectorTextColor: UIColor = .white {
+    @IBInspectable
+    public var selectorTextColor: UIColor = .white {
         didSet {
-            updateView()
+            updateViews()
         }
     }
     
@@ -75,12 +78,8 @@ open class MaterialSegmentedControl: UIControl {
         self.backgroundColor = bgColor
     }
     
-    func updateView() {
+    func updateViews() {
         guard segments.count > 0 else { return }
-        
-        subviews.forEach { (view) in
-            view.removeFromSuperview()
-        }
         
         for idx in 0..<segments.count {
             segments[idx].backgroundColor = .clear
@@ -104,11 +103,16 @@ open class MaterialSegmentedControl: UIControl {
             selector.setCornerBorder(color: selectorColor, borderWidth: 1.5)
         }
         
-        self.removeSubviews()
-        self.addSubview(selector)
-        selector.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(stackView)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+        subviews.forEach { (view) in
+            view.removeFromSuperview()
+        }
+        
+        [selector, stackView].forEach { (view) in
+            guard let view = view else { return }
+            self.addSubview(view)
+            view.translatesAutoresizingMaskIntoConstraints = false
+        }
+        
         if let firstBtn = segments.first {
             buttonTapped(button: firstBtn)
         }
@@ -127,14 +131,15 @@ open class MaterialSegmentedControl: UIControl {
             selector.heightAnchor.constraint(equalToConstant: 3.0).isActive = true
         }
         
+        if let selector = selector, let first = stackView.arrangedSubviews.first {
+            self.addConstraint(NSLayoutConstraint(item: selector, attribute: .width, relatedBy: .equal, toItem: first, attribute: .width, multiplier: 1.0, constant: 0.0))
+        }
+        
         stackView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         stackView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         stackView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         
-        if let selector = selector, let first = stackView.arrangedSubviews.first {
-            self.addConstraint(NSLayoutConstraint(item: selector, attribute: .width, relatedBy: .equal, toItem: first, attribute: .width, multiplier: 1.0, constant: 0.0))
-        }
         self.layoutIfNeeded()
     }
     
@@ -148,13 +153,21 @@ open class MaterialSegmentedControl: UIControl {
                 selectedSegmentIndex = idx
                 btn.setImage(image?.colored(selectorTextColor))
                 btn.setTitleColor(selectorStyle == .line ? textColor : selectorTextColor, for: .normal)
-                moveView(selector, toView: btn)
+                moveView(selector, toX: btn.frame.origin.x)
             }
         }
         sendActions(for: .valueChanged)
     }
     
-    open func moveView(_ view: UIView, duration: Double = 0.5, completion: ((Bool) -> Void)? = nil, toView: UIView) {
+    /**
+     Moves the view to the right position.
+     
+     - Parameter view:       The view to be moved to new position.
+     - Parameter duration:   The duration of the animation.
+     - Parameter completion: The completion handler.
+     - Parameter toView:     The targetd view frame.
+     */
+    open func moveView(_ view: UIView, duration: Double = 0.5, completion: ((Bool) -> Void)? = nil, toX: CGFloat) {
         view.transform = CGAffineTransform(translationX: view.frame.origin.x, y: 0.0)
         UIView.animate(withDuration: duration,
                        delay: 0,
@@ -162,7 +175,7 @@ open class MaterialSegmentedControl: UIControl {
                        initialSpringVelocity: 0.1,
                        options: .curveEaseOut,
                        animations: { () -> Void in
-                        view.transform = CGAffineTransform(translationX: toView.frame.origin.x, y: 0.0)
+                        view.transform = CGAffineTransform(translationX: toX, y: 0.0)
         }, completion: completion)
     }
 }
