@@ -16,6 +16,8 @@ open class MaterialVerticalButton: UIControl {
     open var imageView: UIImageView!
     open var label: UILabel!
     
+    private var imgHeightContraint: NSLayoutConstraint?
+    
     @IBInspectable open var elevation: CGFloat = 0 {
         didSet {
             rippleLayer.elevation = elevation
@@ -139,7 +141,11 @@ open class MaterialVerticalButton: UIControl {
         imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 0.03*height).isActive = true
         imageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 0.1*width).isActive = true
         imageView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -0.1*width).isActive = true
-        imageView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.6).isActive = true
+        if imgHeightContraint != nil {
+            imgHeightContraint.unsafelyUnwrapped.isActive = false
+        }
+        imgHeightContraint = imageView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.6)
+        imgHeightContraint?.isActive = true
         
         label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 0.05*height).isActive = true
         label.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 0.1*width).isActive = true
