@@ -5,6 +5,7 @@
 //  Created by Ho, Tsung Wei on 5/16/19.
 //  Copyright © 2019 Michael Ho. All rights reserved.
 //
+import UIKit
 
 public typealias BtnAction = (()->())?
 
@@ -63,7 +64,7 @@ extension UIColor {
 }
 
 // MARK: - UIButton
-
+@available(iOS 9.0, *)
 extension UIButton {
     /**
      Set button image for all button states
@@ -184,6 +185,7 @@ extension UIView {
     }
 }
 
+@available(iOS 9.0, *)
 extension UIStackView {
     
     /**
