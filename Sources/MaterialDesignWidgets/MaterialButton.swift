@@ -9,6 +9,7 @@
 
 import UIKit
 
+@available(iOS 9.0, *)
 open class MaterialButton: UIButton {
     @IBInspectable open var maskEnabled: Bool = true {
         didSet {
