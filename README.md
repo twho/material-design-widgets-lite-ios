@@ -4,7 +4,7 @@
 ## Material Design Widgets - Lightweight
 This framework give you full flexibility to apply any material design widget you would like to use in your app! Please see below steps if you only need to use one or two of the entire package widgets. 
 
-[![Generic badge](https://img.shields.io/badge/Swift-5.0-orange.svg)](https://shields.io/) [![Generic badge](https://img.shields.io/badge/iOS-11.0+-blue.svg)](https://shields.io/)  [![Generic badge](https://img.shields.io/badge/Version-0.1.0-orange.svg)](https://shields.io/) [![Generic badge](https://img.shields.io/badge/pod-0.1.0-lightgrey.svg)](https://shields.io/) [
+[![Generic badge](https://img.shields.io/badge/Swift-5.0-orange.svg)](https://shields.io/) [![Generic badge](https://img.shields.io/badge/iOS-11.0+-blue.svg)](https://shields.io/)  [![Generic badge](https://img.shields.io/badge/Version-0.1.0-orange.svg)](https://shields.io/) [![Generic badge](https://img.shields.io/badge/pod-1.8.4-lightgrey.svg)](https://shields.io/) [
 ![Generic badge](https://img.shields.io/badge/platform-ios-green.svg)](https://shields.io/) 
 
 <img src="gif/overview.gif" alt="overview" width="250"/>
