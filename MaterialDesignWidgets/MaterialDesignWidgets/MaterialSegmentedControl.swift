@@ -2,7 +2,7 @@
 //  MaterialSegmentedControl.swift
 //  MaterialDesignWidgets
 //
-//  Created by Michael Ho on 06/09/19.
+//  Created by Michael Ho on 04/27/20.
 //  Copyright © 2019 Michael Ho. All rights reserved.
 //
 
