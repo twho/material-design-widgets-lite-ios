@@ -17,7 +17,7 @@ open class MaterialButton: UIButton {
     }
     @IBInspectable open var cornerRadius: CGFloat = 12.0 {
         didSet {
-            self.layer.cornerRadius = self.cornerRadius
+            self.setCornerBorder(cornerRadius: cornerRadius)
             rippleLayer.superLayerDidResize()
         }
     }
