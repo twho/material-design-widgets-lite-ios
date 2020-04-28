@@ -12,36 +12,46 @@ import MaterialDesignWidgets
 class ViewController: UIViewController {
     
     private var stackView: UIStackView!
-    private var segmenteldControl: UISegmentedControl!
+    private var topSegmentControl: UISegmentedControl!
     private let widgets: [WidgetType] = [
         .textField,
         .segmentedControlOutline,
-        .segmentedControlLine,
+        .segmentedControlLineText,
         .segmentedControlFill,
-        .loadingIndicator,
+        .segmentedControlLineIcon
     ]
     
     private let buttons: [WidgetType] = [
         .button,
         .loadingButton,
         .verticalButton,
-        .shadowButton
+        .shadowButton,
+        .loadingIndicator
     ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.hideKeyboardWhenTappedAround()
-        segmenteldControl = UISegmentedControl(items: ["All Widgets", "Buttons"])
-        segmenteldControl.tintColor = .black
-        segmenteldControl.addTarget(self, action: #selector(segmentDidChange(_:)), for: .valueChanged)
-        stackView = UIStackView(axis: .vertical, distribution: .fillEqually, spacing: self.view.frame.height * 0.01)
-        self.view.addSubViews([segmenteldControl, stackView])
+        topSegmentControl = UISegmentedControl(items: ["All Widgets", "Buttons"])
+        if #available(iOS 13.0, *) {
+            topSegmentControl.selectedSegmentTintColor = .black
+        } else {
+            topSegmentControl.tintColor = .black
+        }
         
-        segmenteldControl.selectedSegmentIndex = 0
-        segmentDidChange(segmenteldControl)
+        topSegmentControl.addTarget(self, action: #selector(topSegmentDidChange(_:)), for: .valueChanged)
+        stackView = UIStackView(axis: .vertical, distribution: .fillEqually, spacing: self.view.frame.height * 0.01)
+        self.view.addSubViews([topSegmentControl, stackView])
+        
+        topSegmentControl.selectedSegmentIndex = 0
+        topSegmentDidChange(topSegmentControl)
     }
+    /**
+     Reload demo app UI.
     
+    - Parameter widgetTypes: The widget type to display.
+    */
     private func reloadStackView(_ widgetTypes: [WidgetType]) {
         self.stackView.arrangedSubviews.forEach {
             $0.removeFromSuperview()
@@ -50,50 +60,52 @@ class ViewController: UIViewController {
             let label = UILabel()
             label.text = type.rawValue
             label.textColor = .black
-            label.font = UIFont.boldSystemFont(ofSize: 15.0)
+            label.font = UIFont.boldSystemFont(ofSize: 14.0)
             stackView.addArrangedSubview(label)
             
             if type == .loadingButton, let loadingBtn = type.widget as? MaterialButton {
                 loadingBtn.addTarget(self, action: #selector(tapLoadingButton(sender:)), for: .touchUpInside)
                 stackView.addArrangedSubview(loadingBtn)
-            } else if let segmentedControl = type.widget as? MaterialSegmentedControl {
+            } else if let segCtrl = type.widget as? MaterialSegmentedControl {
                 switch type {
                 case .segmentedControlFill, .segmentedControlOutline:
-                    setSampleSegments(segmentedControl, 18.0)
-                case .segmentedControlLine:
-                    setSampleSegments(segmentedControl, 0.0)
+                    setSampleSegments(segmentedControl: segCtrl, radius: 18.0)
+                case .segmentedControlLineText:
+                    setSampleSegments(segmentedControl: segCtrl, radius: 0.0)
+                case .segmentedControlLineIcon:
+                    let icons = [#imageLiteral(resourceName: "ic_home_fill").colored(.darkGray)!, #imageLiteral(resourceName: "ic_home_fill").colored(.gray)!, #imageLiteral(resourceName: "ic_home_fill").colored(.lightGray)!]
+                    for i in 0..<3 {
+                        segCtrl.appendIconSegment(icon: icons[i], preserveIconColor: true, rippleColor: .clear, cornerRadius: 0.0)
+                    }
                 default:
                     continue
                 }
-                stackView.addArrangedSubview(segmentedControl)
+                stackView.addArrangedSubview(segCtrl)
             } else {
                 stackView.addArrangedSubview(type.widget)
             }
             
             if let last = stackView.arrangedSubviews.last {
-                label.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.075).isActive = true
-                last.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: type == .verticalButton ? 0.12 : 0.06).isActive = true
+                label.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.06).isActive = true
+                last.heightAnchor.constraint(equalTo: self.view.heightAnchor,
+                                             multiplier: type == .verticalButton || type == .segmentedControlLineIcon ? 0.1 : 0.06).isActive = true
             }
         }
         self.view.layoutIfNeeded()
     }
-    
     /**
      Create sample segments for the segmented control.
      
      - Parameter segmentedControl: The segmented control to put these segments into.
      - Parameter cornerRadius:     The corner radius to be set to segments and selectors.
      */
-    private func setSampleSegments(_ segmentedControl: MaterialSegmentedControl, _ cornerRadius: CGFloat) {
+    private func setSampleSegments(segmentedControl: MaterialSegmentedControl, radius: CGFloat) {
         for i in 0..<3 {
-            // Button background needs to be clear, it will be set to clear in segmented control anyway.
-            let button = MaterialButton(text: "Segment \(i)", textColor: .gray, bgColor: .clear, cornerRadius: cornerRadius)
-            button.rippleLayerAlpha = 0.15
-            segmentedControl.segments.append(button)
+            segmentedControl.appendSegment(text: "Segment \(i)", textColor: .gray, bgColor: .clear, cornerRadius: radius)
         }
     }
     
-    @objc func segmentDidChange(_ sender: UISegmentedControl) {
+    @objc func topSegmentDidChange(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
             reloadStackView(widgets)
@@ -108,15 +120,15 @@ class ViewController: UIViewController {
         sender.isLoading = !sender.isLoading
         sender.isLoading ? sender.showLoader(userInteraction: true) : sender.hideLoader()
     }
-    
+    // AutoLayout
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         let height = self.view.frame.height
         let width = self.view.frame.width
-        self.segmenteldControl.setConstraintsToView(top: self.view, tConst: 0.08*height, left: self.view, lConst: 0.05*width, right: self.view, rConst: -0.05*width)
+        self.topSegmentControl.setConstraintsToView(top: self.view, tConst: 0.08*height, left: self.view, lConst: 0.05*width, right: self.view, rConst: -0.05*width)
         self.stackView.setConstraintsToView(left: self.view, lConst: 0.05*width, right: self.view, rConst: -0.05*width)
-        self.segmenteldControl.heightAnchor.constraint(equalToConstant: 30.0).isActive = true
-        self.view.addConstraint(NSLayoutConstraint(item: self.stackView!, attribute: .top, relatedBy: .equal, toItem: segmenteldControl, attribute: .bottom, multiplier: 1.0, constant: 0.03*height))
+        self.topSegmentControl.heightAnchor.constraint(equalToConstant: 30.0).isActive = true
+        self.view.addConstraint(NSLayoutConstraint(item: self.stackView!, attribute: .top, relatedBy: .equal, toItem: topSegmentControl, attribute: .bottom, multiplier: 1.0, constant: 0.03*height))
         self.view.layoutIfNeeded()
     }
 }
@@ -129,8 +141,9 @@ enum WidgetType: String {
     case textField = "Material Design TextField"
     case loadingIndicator = "Loading Indicator"
     case segmentedControlOutline = "Segmented Control - Outline"
-    case segmentedControlLine = "Segmented Control - Line"
+    case segmentedControlLineText = "Segmented Control - Line Text"
     case segmentedControlFill = "Segmented Control - Fill"
+    case segmentedControlLineIcon = "Segmented Control - Line Icon"
     
     var widget: UIView {
         switch self {
@@ -164,14 +177,15 @@ enum WidgetType: String {
             let stack = UIStackView(arrangedSubviews: [indicatorBlack, indicatorGray], axis: .horizontal, distribution: .fillEqually, spacing: 10.0)
             return stack
         case .segmentedControlFill:
-            let segmentControl = MaterialSegmentedControl(selectorStyle: .fill, textColor: .black, selectorTextColor: .white, selectorColor: .black, bgColor: .lightGray)
-            segmentControl.setCornerBorder(cornerRadius: 18.0)
-            return segmentControl
+            let segCtrl = MaterialSegmentedControl(selectorStyle: .fill, fgColor: .black, selectedFgColor: .white, selectorColor: .black, bgColor: .lightGray)
+            segCtrl.setCornerBorder(cornerRadius: 18.0)
+            return segCtrl
         case .segmentedControlOutline:
-            return MaterialSegmentedControl(selectorStyle: .outline, textColor: .black, selectorTextColor: .black, selectorColor: .black, bgColor: .white)
-        case .segmentedControlLine:
-            let seg = MaterialSegmentedControl(selectorStyle: .line, textColor: .black, selectorTextColor: .black, selectorColor: .black, bgColor: .white)
-            return MaterialSegmentedControl(selectorStyle: .line, textColor: .black, selectorTextColor: .black, selectorColor: .black, bgColor: .white)
+            return MaterialSegmentedControl(selectorStyle: .outline, fgColor: .black, selectedFgColor: .black, selectorColor: .black, bgColor: .white)
+        case .segmentedControlLineText:
+            return MaterialSegmentedControl(selectorStyle: .line, fgColor: .black, selectedFgColor: .black, selectorColor: .black, bgColor: .white)
+        case .segmentedControlLineIcon:
+            return MaterialSegmentedControl(selectorStyle: .line, fgColor: .black, selectedFgColor: .black, selectorColor: .gray, bgColor: .white)
         }
     }
 }

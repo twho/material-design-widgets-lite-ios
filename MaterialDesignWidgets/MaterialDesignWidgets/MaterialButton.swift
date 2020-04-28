@@ -3,7 +3,7 @@
 //  MaterialDesignWidgets
 //
 //  Created by Le Van Nghia on 11/15/14.
-//  Updated by Ho, Tsung Wei on 4/11/19.
+//  Updated by Michael Ho on 4/27/20.
 //  Copyright © 2019 Michael T. Ho. All rights reserved.
 //
 
@@ -17,7 +17,7 @@ open class MaterialButton: UIButton {
     }
     @IBInspectable open var cornerRadius: CGFloat = 12.0 {
         didSet {
-            self.layer.cornerRadius = self.cornerRadius
+            self.setCornerBorder(cornerRadius: cornerRadius)
             rippleLayer.superLayerDidResize()
         }
     }

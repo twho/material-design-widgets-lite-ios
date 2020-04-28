@@ -65,16 +65,14 @@ let btnV = MaterialVerticalButton(icon: img, title: "Fill", foregroundColor: .bl
 Files  needed:
 1. MaterialSegmentedControl.swift
 ```swift
-var segments = [UIButton]() // Segments are in the Button form.
 for i in 0..<3 {
-	let button = MaterialButton(text: "Segment \(i)", textColor: .gray, bgColor: .clear, cornerRadius: 18.0)
-	segments.append(button)
+    segmentedControl.appendSegment(text: "Segment \(i)", textColor: .gray, bgColor: .clear, cornerRadius: radius)
 }
 ```
+
 #### Filled
 ```swift
-let sgFilled = MaterialSegmentedControl(segments: segments, selectorStyle: .fill, textColor: .black, selectorTextColor: .white, selectorColor: .black)
-
+let sgFilled = MaterialSegmentedControl(selectorStyle: .fill, fgColor: .black, selectedFgColor: .white, selectorColor: .black, bgColor: .lightGray)
 // Below is styling, you can write your own.
 sgFilled.backgroundColor = .lightGray
 sgFilled.setCornerBorder(cornerRadius: 18.0)
@@ -84,14 +82,14 @@ sgFilled.setCornerBorder(cornerRadius: 18.0)
 
 #### Outline
 ```swift
-let sgOutline = MaterialSegmentedControl(segments: segments, selectorStyle: .line, textColor: .black, selectorTextColor: .white, selectorColor: .black)
+let sgOutline = MaterialSegmentedControl(selectorStyle: .outline, fgColor: .black, selectedFgColor: .black, selectorColor: .black, bgColor: .white)
 ```
 
 <img src="gif/segmentOutline.gif" alt="segmentOutline" width="350"/>
 
 #### Line
 ```swift
-let sgLine = MaterialSegmentedControl(selectorStyle: .line, textColor: .black, selectorTextColor: .black, selectorColor: .black, bgColor: .white)
+let sgLine = MaterialSegmentedControl(selectorStyle: .line, fgColor: .black, selectedFgColor: .black, selectorColor: .black, bgColor: .white)
 ```
 
 <img src="gif/segmentLine.gif" alt="segmentLine" width="350"/>

@@ -2,7 +2,7 @@
 //  MaterialSegmentedControl.swift
 //  MaterialDesignWidgets
 //
-//  Created by Michael Ho on 06/09/19.
+//  Created by Michael Ho on 04/27/20.
 //  Copyright © 2019 Michael Ho. All rights reserved.
 //
 
@@ -26,9 +26,18 @@ open class MaterialSegmentedControl: UIControl {
             layer.borderWidth = borderWidth
         }
     }
-    
-    @IBInspectable
-    public var textColor: UIColor = .gray {
+    /**
+     The foreground color of the segment.
+     */
+    @IBInspectable public var foregroundColor: UIColor = .gray {
+        didSet {
+            updateViews()
+        }
+    }
+    /**
+     The boolean to set whether the segment control displays the original color of the icon.
+     */
+    @IBInspectable public var preserveIconColor: Bool = false {
         didSet {
             updateViews()
         }
@@ -45,15 +54,13 @@ open class MaterialSegmentedControl: UIControl {
         }
     }
     
-    @IBInspectable
-    public var selectorColor: UIColor = .gray {
+    @IBInspectable public var selectorColor: UIColor = .gray {
         didSet {
             updateViews()
         }
     }
     
-    @IBInspectable
-    public var selectorTextColor: UIColor = .white {
+    @IBInspectable public var selectedForegroundColor: UIColor = .white {
         didSet {
             updateViews()
         }
@@ -66,16 +73,44 @@ open class MaterialSegmentedControl: UIControl {
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    convenience public init(segments: [UIButton] = [], selectorStyle: SelectorStyle = .line, textColor: UIColor = .gray, selectorTextColor: UIColor = .white, selectorColor: UIColor = .gray, bgColor: UIColor = .clear) {
+    /**
+     Convenience initializer of MaterialSegmentedControl.
+     
+     - Parameter segments:        The segment in UIButton form.
+     - Parameter selectorStyle:   The style of the selector, fill, outline and line are supported.
+     - Parameter fgColor:         The foreground color of the non-selected segment.
+     - Parameter selectedFgColor: The foreground color of the selected segment.
+     - Parameter selectorColor:   The color of the selector.
+     - Parameter bgColor:         Background color.
+     */
+    convenience public init(segments: [UIButton] = [], selectorStyle: SelectorStyle = .line, fgColor: UIColor = .gray, selectedFgColor: UIColor = .white, selectorColor: UIColor = .gray, bgColor: UIColor = .clear) {
         self.init(frame: .zero)
         
         self.segments = segments
         self.selectorStyle = selectorStyle
-        self.textColor = textColor
-        self.selectorTextColor = selectorTextColor
+        self.foregroundColor = fgColor
+        self.selectedForegroundColor = selectedFgColor
         self.selectorColor = selectorColor
         self.backgroundColor = bgColor
+    }
+    
+    open func appendIconSegment(icon: UIImage? = nil, preserveIconColor: Bool = true, rippleColor: UIColor = .clear, cornerRadius: CGFloat = 12.0) {
+        self.preserveIconColor = preserveIconColor
+        let button = MaterialButton(icon: icon, bgColor: rippleColor, cornerRadius: cornerRadius)
+        button.rippleLayerAlpha = 0.15
+        self.segments.append(button)
+    }
+    
+    open func appendSegment(icon: UIImage? = nil, text: String? = nil,
+                            textColor: UIColor? = .white, font: UIFont? = nil, rippleColor: UIColor = .clear,
+                            cornerRadius: CGFloat = 12.0) {
+        let button = MaterialButton(icon: icon, text: text, textColor: textColor, bgColor: rippleColor, cornerRadius: cornerRadius)
+        button.rippleLayerAlpha = 0.15
+        self.segments.append(button)
+    }
+    
+    open func appendSegment(text: String, textColor: UIColor, bgColor: UIColor, cornerRadius: CGFloat = 12.0) {
+        self.appendSegment(icon: nil, text: text, textColor: textColor, rippleColor: bgColor, cornerRadius: cornerRadius)
     }
     
     func updateViews() {
@@ -119,7 +154,7 @@ open class MaterialSegmentedControl: UIControl {
         
         self.layoutSubviews()
     }
-    
+    // AutoLayout
     override open func layoutSubviews() {
         super.layoutSubviews()
         
@@ -146,19 +181,18 @@ open class MaterialSegmentedControl: UIControl {
     @objc func buttonTapped(button: UIButton) {
         for (idx, btn) in segments.enumerated() {
             let image = btn.image(for: .normal)
-            btn.setTitleColor(textColor, for: .normal)
-            btn.setImage(image?.colored(textColor))
+            btn.setTitleColor(foregroundColor, for: .normal)
+            btn.setImage(preserveIconColor ? image : image?.colored(foregroundColor))
             
             if btn.tag == button.tag {
                 selectedSegmentIndex = idx
-                btn.setImage(image?.colored(selectorTextColor))
-                btn.setTitleColor(selectorStyle == .line ? textColor : selectorTextColor, for: .normal)
+                btn.setImage(preserveIconColor ? image : image?.colored(selectedForegroundColor))
+                btn.setTitleColor(selectorStyle == .line ? foregroundColor : selectedForegroundColor, for: .normal)
                 moveView(selector, toX: btn.frame.origin.x)
             }
         }
         sendActions(for: .valueChanged)
     }
-    
     /**
      Moves the view to the right position.
      
