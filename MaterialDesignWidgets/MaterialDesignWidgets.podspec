@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "MaterialDesignWidgets"
-  spec.version      = "0.0.10"
+  spec.version      = "0.1.0"
   spec.summary      = "Light implementation of material design widgets."
 
   # This description is used to generate tags and improve search results.
@@ -24,7 +24,7 @@ Pod::Spec.new do |spec|
   #   * Try to keep it short, snappy and to the point.
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
-  spec.description  = "Material design styled buttons, vertically arranged buttons, activity loader and loading button."
+  spec.description  = "Material design styled buttons, vertically arranged buttons, segmented controls, activity loaders and loading buttons."
 
   spec.homepage     = "https://github.com/twho/MaterialDesignWidgets-iOS-Lightweight/tree/master"
   # spec.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
