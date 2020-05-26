@@ -163,9 +163,9 @@ extension UIView {
      - Parameter cornerRadius: The radius of the shadow path.
      - Parameter shadowRadius: The radius of the shadow.
      */
-    open func setAsShadow(bounds: CGRect, cornerRadius: CGFloat = 0.0, shadowRadius: CGFloat = 1) {
+    open func setAsShadow(bounds: CGRect, cornerRadius: CGFloat = 0.0, shadowRadius: CGFloat = 1, color: UIColor) {
         self.backgroundColor = UIColor.clear
-        self.layer.shadowColor = UIColor.lightGray.cgColor
+        self.layer.shadowColor = color.cgColor
         self.layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
         self.layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
         self.layer.shadowOpacity = 0.7

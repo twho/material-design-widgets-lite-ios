@@ -44,7 +44,7 @@ class ViewController: UIViewController {
         stackView = UIStackView(axis: .vertical, distribution: .fillEqually, spacing: self.view.frame.height * 0.01)
         self.view.addSubViews([topSegmentControl, stackView])
         
-        topSegmentControl.selectedSegmentIndex = 0
+        topSegmentControl.selectedSegmentIndex = 1
         topSegmentDidChange(topSegmentControl)
     }
     /**
@@ -69,9 +69,13 @@ class ViewController: UIViewController {
             }
             stackView.addArrangedSubview(label)
             
-            if type == .loadingButton, let loadingBtn = type.widget as? MaterialButton {
-                loadingBtn.addTarget(self, action: #selector(tapLoadingButton(sender:)), for: .touchUpInside)
-                stackView.addArrangedSubview(loadingBtn)
+            if type == .loadingButton, let stack = type.widget as? UIStackView {
+                for subView in stack.arrangedSubviews {
+                    if let loadingBtn = subView as? MaterialButton {
+                        loadingBtn.addTarget(self, action: #selector(tapLoadingButton(sender:)), for: .touchUpInside)
+                    }
+                }
+                stackView.addArrangedSubview(stack)
             } else if let segCtrl = type.widget as? MaterialSegmentedControl {
                 switch type {
                 case .segmentedControlFill, .segmentedControlOutline:
@@ -152,65 +156,94 @@ enum WidgetType: String {
     case segmentedControlLineIcon = "Segmented Control - Line Icon"
     
     var widget: UIView {
-        switch self {
-        case .button:
-            let btnLeft = MaterialButton(text: "Button", cornerRadius: 15.0)
-            let btnRight = MaterialButton(text: "Button", textColor: .black, bgColor: .white)
-            btnRight.setCornerBorder(color: .black, cornerRadius: 15.0)
-            let stack = UIStackView(arrangedSubviews: [btnLeft, btnRight], axis: .horizontal, distribution: .fillEqually, spacing: 10.0)
-            return stack
-        case .loadingButton:
-            return MaterialButton(text: self.rawValue, cornerRadius: 15.0)
-        case .shadowButton:
-            let btnLeft = MaterialButton(text: self.rawValue, cornerRadius: 15.0, withShadow: true)
-            let btnRight = MaterialButton(text: self.rawValue, textColor: .black, bgColor: .white, withShadow: true)
-            btnRight.setCornerBorder(color: .black, cornerRadius: 15.0)
-            let stack = UIStackView(arrangedSubviews: [btnLeft, btnRight], axis: .horizontal, distribution: .fillEqually, spacing: 10.0)
-            return stack
-        case .verticalButton:
-            let btn1 = MaterialVerticalButton(icon: #imageLiteral(resourceName: "ic_home_fill"), title: "Fill", foregroundColor: .black, bgColor: .white, cornerRadius: 18.0)
-            let btn2 = MaterialVerticalButton(icon: #imageLiteral(resourceName: "ic_home_color"), title: "Color", foregroundColor: .black, useOriginalImg: true, bgColor: .white, cornerRadius: 18.0)
-            let btn3 = MaterialVerticalButton(icon: #imageLiteral(resourceName: "ic_home_outline"), title: "Outline", foregroundColor: .white, bgColor: .black, cornerRadius: 18.0)
-            let stack = UIStackView(arrangedSubviews: [btn1, btn2, btn3], axis: .horizontal, distribution: .fillEqually, spacing: 10.0)
-            return stack
-        case .textField:
-            if #available(iOS 13.0, *) {
+        if #available(iOS 13.0, *) {
+            switch self {
+            case .button:
+                let btnLeft = MaterialButton(text: "Button", cornerRadius: 15.0, buttonStyle: .fill)
+                let btnRight = MaterialButton(text: "Button", cornerRadius: 15.0, buttonStyle: .outline)
+                let stack = UIStackView(arrangedSubviews: [btnLeft, btnRight], axis: .horizontal, distribution: .fillEqually, spacing: 10.0)
+                return stack
+            case .loadingButton:
+                let btnLeft = MaterialButton(text: self.rawValue, cornerRadius: 15.0, buttonStyle: .fill)
+                let btnRight = MaterialButton(text: self.rawValue, cornerRadius: 15.0, buttonStyle: .outline)
+                let stack = UIStackView(arrangedSubviews: [btnLeft, btnRight], axis: .horizontal, distribution: .fillEqually, spacing: 10.0)
+                return stack
+            case .shadowButton:
+                // We don't recommend outline style shadow button since in such case the shadow will become the background color of the button.
+                // Feel free to tune one by yourself if you still need a outline shadow button.
+                return MaterialButton(text: self.rawValue, cornerRadius: 15.0, withShadow: true, buttonStyle: .fill)
+            case .verticalButton:
+                let btn1 = MaterialVerticalButton(icon: #imageLiteral(resourceName: "ic_home_fill"), title: "Fill", foregroundColor: .black, bgColor: .white, cornerRadius: 18.0)
+                let btn2 = MaterialVerticalButton(icon: #imageLiteral(resourceName: "ic_home_color"), title: "Color", foregroundColor: .black, useOriginalImg: true, bgColor: .white, cornerRadius: 18.0)
+                let btn3 = MaterialVerticalButton(icon: #imageLiteral(resourceName: "ic_home_outline"), title: "Outline", foregroundColor: .white, bgColor: .black, cornerRadius: 18.0)
+                let stack = UIStackView(arrangedSubviews: [btn1, btn2, btn3], axis: .horizontal, distribution: .fillEqually, spacing: 10.0)
+                return stack
+            case .textField:
                 return MaterialTextField(placeholder: "Material Design TextField", bottomBorderEnabled: true)
-            } else {
-                return MaterialTextField(placeholder: "Material Design TextField", textColor: .black, bgColor: .white)
-            }
-        case .loadingIndicator:
-            let indicatorBlack = MaterialLoadingIndicator(radius: 15.0, color: .black)
-            let indicatorGray = MaterialLoadingIndicator(radius: 15.0, color: .gray)
-            indicatorBlack.startAnimating()
-            indicatorGray.startAnimating()
-            let stack = UIStackView(arrangedSubviews: [indicatorBlack, indicatorGray], axis: .horizontal, distribution: .fillEqually, spacing: 10.0)
-            return stack
-        case .segmentedControlFill:
-            var segCtrl: MaterialSegmentedControl!
-            if #available(iOS 13.0, *) {
+            case .loadingIndicator:
+                let indicatorBlack = MaterialLoadingIndicator(radius: 15.0, color: .label)
+                let indicatorGray = MaterialLoadingIndicator(radius: 15.0, color: .systemFill)
+                indicatorBlack.startAnimating()
+                indicatorGray.startAnimating()
+                let stack = UIStackView(arrangedSubviews: [indicatorBlack, indicatorGray], axis: .horizontal, distribution: .fillEqually, spacing: 10.0)
+                return stack
+            case .segmentedControlFill:
+                var segCtrl: MaterialSegmentedControl!
                 segCtrl = MaterialSegmentedControl(selectorStyle: .fill)
-            } else {
-                segCtrl = MaterialSegmentedControl(selectorStyle: .fill, fgColor: .black, selectedFgColor: .white, selectorColor: .black, bgColor: .lightGray)
-            }
-            segCtrl.setCornerBorder(cornerRadius: 18.0)
-            return segCtrl
-        case .segmentedControlOutline:
-            if #available(iOS 13.0, *) {
+                segCtrl.setCornerBorder(cornerRadius: 18.0)
+                return segCtrl
+            case .segmentedControlOutline:
                 return MaterialSegmentedControl(selectorStyle: .outline)
-            } else {
+            case .segmentedControlLineText:
+                return MaterialSegmentedControl(selectorStyle: .line)
+            case .segmentedControlLineIcon:
+                return MaterialSegmentedControl(selectorStyle: .line)
+            }
+        } else {
+            switch self {
+            case .button:
+                let btnLeft = MaterialButton(text: "Button", textColor: .white, bgColor: .black, cornerRadius: 15.0)
+                let btnRight = MaterialButton(text: "Button", textColor: .black, bgColor: .white)
+                btnRight.setCornerBorder(color: .black, cornerRadius: 15.0)
+                let stack = UIStackView(arrangedSubviews: [btnLeft, btnRight], axis: .horizontal, distribution: .fillEqually, spacing: 10.0)
+                return stack
+            case .loadingButton:
+                let btnLeft = MaterialButton(text: self.rawValue, textColor: .white, bgColor: .black, cornerRadius: 15.0)
+                let btnRight = MaterialButton(text: self.rawValue, textColor: .black, bgColor: .white, cornerRadius: 15.0)
+                btnRight.setCornerBorder(color: .black, cornerRadius: 15.0)
+                let stack = UIStackView(arrangedSubviews: [btnLeft, btnRight], axis: .horizontal, distribution: .fillEqually, spacing: 10.0)
+                return stack
+            case .shadowButton:
+                let btnLeft = MaterialButton(text: self.rawValue,  textColor: .white, bgColor: .black, cornerRadius: 15.0, withShadow: true)
+                let btnRight = MaterialButton(text: self.rawValue, textColor: .black, bgColor: .white, withShadow: true)
+                btnRight.setCornerBorder(color: .black, cornerRadius: 15.0)
+                let stack = UIStackView(arrangedSubviews: [btnLeft, btnRight], axis: .horizontal, distribution: .fillEqually, spacing: 10.0)
+                return stack
+            case .verticalButton:
+                let btn1 = MaterialVerticalButton(icon: #imageLiteral(resourceName: "ic_home_fill"), title: "Fill", foregroundColor: .black, bgColor: .white, cornerRadius: 18.0)
+                let btn2 = MaterialVerticalButton(icon: #imageLiteral(resourceName: "ic_home_color"), title: "Color", foregroundColor: .black, useOriginalImg: true, bgColor: .white, cornerRadius: 18.0)
+                let btn3 = MaterialVerticalButton(icon: #imageLiteral(resourceName: "ic_home_outline"), title: "Outline", foregroundColor: .white, bgColor: .black, cornerRadius: 18.0)
+                let stack = UIStackView(arrangedSubviews: [btn1, btn2, btn3], axis: .horizontal, distribution: .fillEqually, spacing: 10.0)
+                return stack
+            case .textField:
+                return MaterialTextField(placeholder: "Material Design TextField", textColor: .black, bgColor: .white, borderColor: .lightGray)
+            case .loadingIndicator:
+                let indicatorBlack = MaterialLoadingIndicator(radius: 15.0, color: .black)
+                let indicatorGray = MaterialLoadingIndicator(radius: 15.0, color: .gray)
+                indicatorBlack.startAnimating()
+                indicatorGray.startAnimating()
+                let stack = UIStackView(arrangedSubviews: [indicatorBlack, indicatorGray], axis: .horizontal, distribution: .fillEqually, spacing: 10.0)
+                return stack
+            case .segmentedControlFill:
+                var segCtrl: MaterialSegmentedControl!
+                segCtrl = MaterialSegmentedControl(selectorStyle: .fill, fgColor: .black, selectedFgColor: .white, selectorColor: .black, bgColor: .lightGray)
+                segCtrl.setCornerBorder(cornerRadius: 18.0)
+                return segCtrl
+            case .segmentedControlOutline:
                 return MaterialSegmentedControl(selectorStyle: .outline, fgColor: .black, selectedFgColor: .black, selectorColor: .black, bgColor: .white)
-            }
-        case .segmentedControlLineText:
-            if #available(iOS 13.0, *) {
-                return MaterialSegmentedControl(selectorStyle: .line)
-            } else {
+            case .segmentedControlLineText:
                 return MaterialSegmentedControl(selectorStyle: .line, fgColor: .black, selectedFgColor: .black, selectorColor: .black, bgColor: .white)
-            }
-        case .segmentedControlLineIcon:
-            if #available(iOS 13.0, *) {
-                return MaterialSegmentedControl(selectorStyle: .line)
-            } else {
+            case .segmentedControlLineIcon:
                 return MaterialSegmentedControl(selectorStyle: .line, fgColor: .black, selectedFgColor: .black, selectorColor: .gray, bgColor: .white)
             }
         }

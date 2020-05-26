@@ -122,7 +122,7 @@ open class MaterialSegmentedControl: UIControl {
     
     open func appendIconSegment(icon: UIImage? = nil, preserveIconColor: Bool = true, rippleColor: UIColor = .clear, cornerRadius: CGFloat = 12.0) {
         self.preserveIconColor = preserveIconColor
-        let button = MaterialButton(icon: icon, bgColor: rippleColor, cornerRadius: cornerRadius)
+        let button = MaterialButton(icon: icon, textColor: nil, bgColor: rippleColor, cornerRadius: cornerRadius)
         button.rippleLayerAlpha = 0.15
         self.segments.append(button)
     }

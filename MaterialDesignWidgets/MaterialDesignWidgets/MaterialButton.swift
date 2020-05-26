@@ -66,10 +66,19 @@ open class MaterialButton: UIButton {
             rippleLayer.backgroundAnimationEnabled = backgroundAnimationEnabled
         }
     }
+    /**
+     
+     */
+    @available(iOS 13.0, *)
+    public enum ButtonStyle {
+        case fill
+        case outline
+    }
     
     public var shadowAdded: Bool = false
     public var withShadow: Bool = false
     var shadowLayer: UIView?
+    private var loaderWorkItem: DispatchWorkItem?
     
     override open var bounds: CGRect {
         didSet {
@@ -92,17 +101,20 @@ open class MaterialButton: UIButton {
         }
         return views
     }
-    
     /**
      Convenience init of theme button with required information
      
-     - Parameter icon:      the icon of the button, it is be nil by default.
-     - Parameter text:      the title of the button.
-     - Parameter textColor: the text color of the button.
-     - Parameter textSize:  the text size of the button label.
-     - Parameter bgColor:   the background color of the button, tint color will be automatically generated.
+     - Parameter icon:         the icon of the button, it is be nil by default.
+     - Parameter text:         the title of the button.
+     - Parameter font:         the font of the button label.
+     - Parameter textColor:    the text color of the button.
+     - Parameter bgColor:      the background color of the button, tint color will be automatically generated.
+     - Parameter cornerRadius: the corner radius of the button. It is set to 12.0 by default.
+     - Parameter withShadow:   set true to show the shadow of the button.
      */
-    public convenience init(icon: UIImage? = nil, text: String? = nil, textColor: UIColor? = .white, font: UIFont? = nil, bgColor: UIColor = .black, cornerRadius: CGFloat = 12.0, withShadow: Bool = false) {
+    public convenience init(icon: UIImage? = nil, text: String? = nil, font: UIFont? = nil,
+                            textColor: UIColor?, bgColor: UIColor,
+                            cornerRadius: CGFloat = 12.0, withShadow: Bool = false) {
         self.init()
         
         self.rippleLayerColor = bgColor.getColorTint()
@@ -131,6 +143,30 @@ open class MaterialButton: UIButton {
         self.withShadow = withShadow
         self.cornerRadius = cornerRadius
         setupLayer()
+    }
+    /**
+     Convenience init of material design button using system default colors. This initializer
+     reflects dark mode colors on iOS 13 or later platforms. However, it will ignore any custom
+     colors set to the button.
+     
+     - Parameter icon:         the icon of the button, it is be nil by default.
+     - Parameter text:         the title of the button.
+     - Parameter font:         the font of the button label.
+     - Parameter cornerRadius: the corner radius of the button. It is set to 12.0 by default.
+     - Parameter withShadow:   set true to show the shadow of the button.
+     - Parameter buttonStyle:  specify the button style. Styles currently available are fill and outline.
+    */
+    @available(iOS 13.0, *)
+    public convenience init(icon: UIImage? = nil, text: String? = nil, font: UIFont? = nil,
+                            cornerRadius: CGFloat = 12.0, withShadow: Bool = false, buttonStyle: ButtonStyle) {
+        switch buttonStyle {
+        case .fill:
+            self.init(icon: icon, text: text, font: font, textColor: .label, bgColor: .systemFill, withShadow: withShadow)
+        case .outline:
+            self.init(icon: icon, text: text, font: font, textColor: .label, bgColor: .clear, withShadow: withShadow)
+            self.setCornerBorder(color: .label, cornerRadius: cornerRadius)
+        }
+        self.indicator.color = .label
     }
     
     public func setTextStyles(textColor: UIColor? = nil, font: UIFont? = nil) {
@@ -173,50 +209,76 @@ open class MaterialButton: UIButton {
     /**
      Show a loader inside the button, and enable or disable user interection while loading
      */
-    open func showLoader(userInteraction: Bool = false, completion: BtnAction = nil) {
-        showLoader(viewsToBeHide: [self.titleLabel, self.imageView], userInteraction: userInteraction, completion: completion)
+    open func showLoader(userInteraction: Bool = false, _ completion: BtnAction = nil) {
+        showLoader([self.titleLabel, self.imageView], userInteraction: userInteraction, completion)
     }
-    
-    private func showLoader(viewsToBeHide: [UIView?], userInteraction: Bool = false, completion: BtnAction = nil) {
+    /**
+     Display the loader inside the button.
+     
+     - Parameter viewsToBeHidden: The views such as titleLabel, imageViewto be hidden while showing loading indicator.
+     - Parameter userInteraction: Enable the user interaction while displaying the loader.
+     - Parameter completion:      The completion handler.
+    */
+    open func showLoader(_ viewsToBeHidden: [UIView?], userInteraction: Bool = false, _ completion: BtnAction = nil) {
         guard self.subviews.contains(indicator) == false else { return }
-        
-        self.indicator.radius = min(0.7 * self.frame.height/2, self.indicator.radius)
+        // Set up loading indicator and update loading state
         isLoading = true
         self.isUserInteractionEnabled = userInteraction
-        UIView.transition(with: self, duration: 0.2, options: .curveEaseOut, animations: {
-            viewsToBeHide.forEach {
-                $0?.alpha = 0.0
+        indicator.radius = min(0.7*self.frame.height/2, indicator.radius)
+        indicator.alpha = 0.0
+        self.addSubview(self.indicator)
+        // Clean up
+        loaderWorkItem?.cancel()
+        loaderWorkItem = nil
+        // Create a new work item
+        loaderWorkItem = DispatchWorkItem { [weak self] in
+            guard let self = self, let item = self.loaderWorkItem, !item.isCancelled else { return }
+            UIView.transition(with: self, duration: 0.2, options: .curveEaseOut, animations: {
+                viewsToBeHidden.forEach {
+                    $0?.alpha = 0.0
+                }
+                self.indicator.alpha = 1.0
+            }) { _ in
+                guard !item.isCancelled else { return }
+                self.isLoading ? self.indicator.startAnimating() : self.hideLoader()
+                completion?()
             }
-        }) { [weak self] (finished) in
-            guard let self = self else { return }
-            self.addSubview(self.indicator)
-            if self.isLoading {
-                self.indicator.startAnimating()
-            } else {
-                self.hideLoader()
-            }
-            completion?()
         }
+        loaderWorkItem?.perform()
     }
     /**
      Show a loader inside the button with image.
      */
     open func showLoaderWithImage(userInteraction: Bool = false){
-        showLoader(viewsToBeHide: [self.titleLabel], userInteraction: userInteraction)
+        showLoader([self.titleLabel], userInteraction: userInteraction)
     }
+    /**
+    Hide the loader displayed.
     
-    open func hideLoader(){
+    - Parameter completion: The completion handler.
+    */
+    open func hideLoader(_ completion: BtnAction = nil) {
         guard self.subviews.contains(indicator) == true else { return }
-        
+        // Update loading state
         isLoading = false
         self.isUserInteractionEnabled = true
-        self.indicator.stopAnimating()
-        self.indicator.removeFromSuperview()
-        UIView.transition(with: self, duration: 0.2, options: .curveEaseIn, animations: {
-            self.titleLabel?.alpha = 1.0
-            self.imageView?.alpha = 1.0
-        }) { (finished) in
+        indicator.stopAnimating()
+        // Clean up
+        indicator.removeFromSuperview()
+        loaderWorkItem?.cancel()
+        loaderWorkItem = nil
+        // Create a new work item
+        loaderWorkItem = DispatchWorkItem { [weak self] in
+            guard let self = self, let item = self.loaderWorkItem, !item.isCancelled else { return }
+            UIView.transition(with: self, duration: 0.2, options: .curveEaseIn, animations: {
+                self.titleLabel?.alpha = 1.0
+                self.imageView?.alpha = 1.0
+            }) { _ in
+                guard !item.isCancelled else { return }
+                completion?()
+            }
         }
+        loaderWorkItem?.perform()
     }
     
     public func fillContent() {
@@ -224,19 +286,31 @@ open class MaterialButton: UIButton {
         self.contentHorizontalAlignment = .fill
     }
     
+    open override func removeFromSuperview() {
+        super.removeFromSuperview()
+        shadowLayer?.removeFromSuperview()
+    }
+    
     open override func draw(_ rect: CGRect) {
         super.draw(rect)
         
         if shadowAdded || !withShadow { return }
         shadowAdded = true
-        
+
         shadowLayer = UIView(frame: self.frame)
-        
+
         guard let shadowLayer = shadowLayer else { return }
-        shadowLayer.setAsShadow(bounds: bounds, cornerRadius: self.cornerRadius)
+        if #available(iOS 13.0, *) {
+            shadowLayer.setAsShadow(bounds: bounds, cornerRadius: self.cornerRadius, color: .tertiarySystemBackground)
+        } else {
+            shadowLayer.setAsShadow(bounds: bounds, cornerRadius: self.cornerRadius, color: .lightGray)
+        }
         self.superview?.insertSubview(shadowLayer, belowSubview: self)
     }
     
+    open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        draw(self.frame)
+    }
     
     // MARK: Touch
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
