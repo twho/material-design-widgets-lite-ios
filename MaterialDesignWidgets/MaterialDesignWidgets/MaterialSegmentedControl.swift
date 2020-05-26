@@ -83,7 +83,8 @@ open class MaterialSegmentedControl: UIControl {
      - Parameter selectorColor:   The color of the selector.
      - Parameter bgColor:         Background color.
      */
-    convenience public init(segments: [UIButton] = [], selectorStyle: SelectorStyle = .line, fgColor: UIColor = .gray, selectedFgColor: UIColor = .white, selectorColor: UIColor = .gray, bgColor: UIColor = .clear) {
+    public convenience init(segments: [UIButton] = [], selectorStyle: SelectorStyle = .line,
+                            fgColor: UIColor, selectedFgColor: UIColor, selectorColor: UIColor, bgColor: UIColor) {
         self.init(frame: .zero)
         
         self.segments = segments
@@ -92,6 +93,31 @@ open class MaterialSegmentedControl: UIControl {
         self.selectedForegroundColor = selectedFgColor
         self.selectorColor = selectorColor
         self.backgroundColor = bgColor
+    }
+    /**
+     Convenience init of material design segmentedControl using system default colors. This initializer
+     reflects dark mode colors on iOS 13 or later platforms. However, it will ignore any custom colors
+     set to the segmentedControl.
+     
+     - Parameter segments:      The segment in UIButton form.
+     - Parameter selectorStyle: The style of the selector, fill, outline and line are supported.
+     */
+    @available(iOS 13.0, *)
+    public convenience init(segments: [UIButton] = [], selectorStyle: SelectorStyle = .line) {
+        self.init(frame: .zero)
+        
+        self.segments = segments
+        self.selectorStyle = selectorStyle
+        self.foregroundColor = .label
+        self.selectedForegroundColor = .label
+        switch selectorStyle {
+        case .fill:
+            self.selectorColor = .secondarySystemFill
+            self.backgroundColor = .secondarySystemBackground
+        default:
+            self.selectorColor = .label
+            self.backgroundColor = .systemBackground
+        }
     }
     
     open func appendIconSegment(icon: UIImage? = nil, preserveIconColor: Bool = true, rippleColor: UIColor = .clear, cornerRadius: CGFloat = 12.0) {

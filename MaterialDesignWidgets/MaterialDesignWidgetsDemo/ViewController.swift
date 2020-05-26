@@ -187,15 +187,32 @@ enum WidgetType: String {
             let stack = UIStackView(arrangedSubviews: [indicatorBlack, indicatorGray], axis: .horizontal, distribution: .fillEqually, spacing: 10.0)
             return stack
         case .segmentedControlFill:
-            let segCtrl = MaterialSegmentedControl(selectorStyle: .fill, fgColor: .black, selectedFgColor: .white, selectorColor: .black, bgColor: .lightGray)
+            var segCtrl: MaterialSegmentedControl!
+            if #available(iOS 13.0, *) {
+                segCtrl = MaterialSegmentedControl(selectorStyle: .fill)
+            } else {
+                segCtrl = MaterialSegmentedControl(selectorStyle: .fill, fgColor: .black, selectedFgColor: .white, selectorColor: .black, bgColor: .lightGray)
+            }
             segCtrl.setCornerBorder(cornerRadius: 18.0)
             return segCtrl
         case .segmentedControlOutline:
-            return MaterialSegmentedControl(selectorStyle: .outline, fgColor: .black, selectedFgColor: .black, selectorColor: .black, bgColor: .white)
+            if #available(iOS 13.0, *) {
+                return MaterialSegmentedControl(selectorStyle: .outline)
+            } else {
+                return MaterialSegmentedControl(selectorStyle: .outline, fgColor: .black, selectedFgColor: .black, selectorColor: .black, bgColor: .white)
+            }
         case .segmentedControlLineText:
-            return MaterialSegmentedControl(selectorStyle: .line, fgColor: .black, selectedFgColor: .black, selectorColor: .black, bgColor: .white)
+            if #available(iOS 13.0, *) {
+                return MaterialSegmentedControl(selectorStyle: .line)
+            } else {
+                return MaterialSegmentedControl(selectorStyle: .line, fgColor: .black, selectedFgColor: .black, selectorColor: .black, bgColor: .white)
+            }
         case .segmentedControlLineIcon:
-            return MaterialSegmentedControl(selectorStyle: .line, fgColor: .black, selectedFgColor: .black, selectorColor: .gray, bgColor: .white)
+            if #available(iOS 13.0, *) {
+                return MaterialSegmentedControl(selectorStyle: .line)
+            } else {
+                return MaterialSegmentedControl(selectorStyle: .line, fgColor: .black, selectedFgColor: .black, selectorColor: .gray, bgColor: .white)
+            }
         }
     }
 }
