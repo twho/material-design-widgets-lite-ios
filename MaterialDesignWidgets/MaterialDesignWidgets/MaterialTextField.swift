@@ -158,7 +158,7 @@ open class MaterialTextField : UITextField {
     }
     /**
      Convenience init of material design textfield using system default colors. This initializer
-     reflects dark mode colors on iOS 13 or up platforms. However, it will ignore any custom
+     reflects dark mode colors on iOS 13 or later platforms. However, it will ignore any custom
      colors set to the textfield.
      
      - Parameter placeholder: the text to display as placeholder.
@@ -175,10 +175,10 @@ open class MaterialTextField : UITextField {
         
         self.backgroundColor = .systemBackground
         self.textColor = .label
-        setPlaceholder(placeholder, placeholderColor: .secondaryLabel)
+        setPlaceholder(placeholder, placeholderColor: .placeholderText)
         if bottomBorderEnabled {
             self.bottomBorderEnabled = true
-            self.bottomBorderColor = .secondaryLabel
+            self.bottomBorderColor = .placeholderText
             self.setupBottomBorder()
         }
     }
