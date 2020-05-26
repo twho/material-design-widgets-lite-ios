@@ -35,10 +35,10 @@ class ViewController: UIViewController {
         self.hideKeyboardWhenTappedAround()
         topSegmentControl = UISegmentedControl(items: ["All Widgets", "Buttons"])
         if #available(iOS 13.0, *) {
-            topSegmentControl.selectedSegmentTintColor = .black
-        } else {
-            topSegmentControl.tintColor = .black
+            self.view.backgroundColor = UIColor.systemBackground
+            topSegmentControl.selectedSegmentTintColor = UIColor.systemFill
         }
+        topSegmentControl.tintColor = .black
         
         topSegmentControl.addTarget(self, action: #selector(topSegmentDidChange(_:)), for: .valueChanged)
         stackView = UIStackView(axis: .vertical, distribution: .fillEqually, spacing: self.view.frame.height * 0.01)
@@ -53,14 +53,20 @@ class ViewController: UIViewController {
     - Parameter widgetTypes: The widget type to display.
     */
     private func reloadStackView(_ widgetTypes: [WidgetType]) {
+        // Remove old widgets
         self.stackView.arrangedSubviews.forEach {
             $0.removeFromSuperview()
         }
+        // Add all widgets
         for type in widgetTypes {
             let label = UILabel()
             label.text = type.rawValue
-            label.textColor = .black
             label.font = UIFont.boldSystemFont(ofSize: 14.0)
+            // Set label color for dark mode
+            label.textColor = .black
+            if #available(iOS 13.0, *) {
+                label.textColor = .label
+            }
             stackView.addArrangedSubview(label)
             
             if type == .loadingButton, let loadingBtn = type.widget as? MaterialButton {
@@ -168,7 +174,11 @@ enum WidgetType: String {
             let stack = UIStackView(arrangedSubviews: [btn1, btn2, btn3], axis: .horizontal, distribution: .fillEqually, spacing: 10.0)
             return stack
         case .textField:
-            return MaterialTextField(hint: "Material Design TextField", textColor: .black, bgColor: .white)
+            if #available(iOS 13.0, *) {
+                return MaterialTextField(placeholder: "Material Design TextField", bottomBorderEnabled: true)
+            } else {
+                return MaterialTextField(placeholder: "Material Design TextField", textColor: .black, bgColor: .white)
+            }
         case .loadingIndicator:
             let indicatorBlack = MaterialLoadingIndicator(radius: 15.0, color: .black)
             let indicatorGray = MaterialLoadingIndicator(radius: 15.0, color: .gray)

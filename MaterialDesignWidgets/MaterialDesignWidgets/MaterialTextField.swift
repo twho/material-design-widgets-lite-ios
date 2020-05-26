@@ -71,13 +71,38 @@ open class MaterialTextField : UITextField {
             rippleLayer.backgroundAnimationEnabled = backgroundAnimationEnabled
         }
     }
-    
+    /**
+     Bottom border configuration.
+     */
+    @IBInspectable open var bottomBorderEnabled: Bool = false {
+        didSet {
+            setupBottomBorder()
+        }
+    }
+    /**
+     Border width when the textField is not first responder.
+     */
+    @IBInspectable open var bottomBorderWidth: CGFloat = 1.5
+    /**
+     Border width when the textField is focused as first responder.
+     */
+    @IBInspectable open var bottomBorderHighlightWidth: CGFloat = 2.0
+    /**
+     Border color when the textField is not first responder. The highlighted bottom border color
+     inherits from tintColor so it is consistent with caret cursor color.
+    */
+    @IBInspectable open var bottomBorderColor: UIColor = .lightGray {
+        didSet {
+            if bottomBorderEnabled {
+                bottomBorderLayer?.backgroundColor = bottomBorderColor.cgColor
+            }
+        }
+    }
     override open var bounds: CGRect {
         didSet {
             rippleLayer.superLayerDidResize()
         }
     }
-    
     // floating label
     @IBInspectable open var floatingLabelFont: UIFont = UIFont.boldSystemFont(ofSize: 10.0) {
         didSet {
@@ -89,28 +114,6 @@ open class MaterialTextField : UITextField {
             floatingLabel.textColor = floatingLabelTextColor
         }
     }
-    
-    @IBInspectable open var bottomBorderEnabled: Bool = true {
-        didSet {
-            bottomBorderLayer?.removeFromSuperlayer()
-            bottomBorderLayer = nil
-            if bottomBorderEnabled {
-                bottomBorderLayer = CALayer()
-                bottomBorderLayer?.frame = CGRect(x: 0, y: layer.bounds.height - 1, width: bounds.width, height: 1)
-                bottomBorderLayer?.backgroundColor = UIColor.lightGray.cgColor
-                layer.addSublayer(bottomBorderLayer!)
-            }
-        }
-    }
-    @IBInspectable open var bottomBorderWidth: CGFloat = 1.0
-    @IBInspectable open var bottomBorderColor: UIColor = .lightGray {
-        didSet {
-            if bottomBorderEnabled {
-                bottomBorderLayer?.backgroundColor = bottomBorderColor.cgColor
-            }
-        }
-    }
-    @IBInspectable open var bottomBorderHighlightWidth: CGFloat = 1.75
     override open var attributedPlaceholder: NSAttributedString? {
         didSet {
             updateFloatingLabelText()
@@ -126,25 +129,63 @@ open class MaterialTextField : UITextField {
         setupLayer()
     }
     /**
-     Convenience init of theme button with required information
+     Convenience init of material design textfield with required information
      
-     - Parameter hint:      the icon of the button, it is be nil by default.
-     - Parameter textColor: the text color of the button.
-     - Parameter textSize:  the text size of the button label.
+     - Parameter placeholder:      the text to display as placeholder.
+     - Parameter placeholderColor: the text color of placeholder.
+     - Parameter textColor:        the text color of input in the textfield.
+     - Parameter bgColor:          the background color of the textfield.
+     - Parameter font:             the font of the textfield.
+     - Parameter delegate:         the custom UITextFieldDelegate of the textfield.
      */
-    public convenience init(hint: String, textColor: UIColor, font: UIFont? = nil, bgColor: UIColor, delegate: UITextFieldDelegate? = nil) {
+    public convenience init(placeholder: String, placeholderColor: UIColor = .lightGray,
+                            textColor: UIColor, bgColor: UIColor, borderColor: UIColor? = nil,
+                            font: UIFont? = nil,
+                            delegate: UITextFieldDelegate? = nil) {
         self.init()
-        
-        self.attributedPlaceholder = NSAttributedString(string: hint,
-                                                        attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
-        self.textColor = textColor
-        
+        setPlaceholder(placeholder)
         if let font = font {
             self.font = font
         }
-        
-        self.backgroundColor = bgColor
         self.delegate = delegate
+        self.textColor = textColor
+        self.backgroundColor = bgColor
+        if let borderColor = borderColor {
+            self.bottomBorderEnabled = true
+            self.bottomBorderColor = borderColor
+            self.setupBottomBorder()
+        }
+    }
+    /**
+     Convenience init of material design textfield using system default colors. This initializer
+     reflects dark mode colors on iOS 13 or up platforms. However, it will ignore any custom
+     colors set to the textfield.
+     
+     - Parameter placeholder: the text to display as placeholder.
+     - Parameter font:        the font of the textfield.
+     - Parameter delegate:    the custom UITextFieldDelegate of the textfield.
+     */
+    @available(iOS 13.0, *)
+    public convenience init(placeholder: String, font: UIFont? = nil, delegate: UITextFieldDelegate? = nil, bottomBorderEnabled: Bool) {
+        self.init()
+        if let font = font {
+            self.font = font
+        }
+        self.delegate = delegate
+        
+        self.backgroundColor = .systemBackground
+        self.textColor = .label
+        setPlaceholder(placeholder, placeholderColor: .secondaryLabel)
+        if bottomBorderEnabled {
+            self.bottomBorderEnabled = true
+            self.bottomBorderColor = .secondaryLabel
+            self.setupBottomBorder()
+        }
+    }
+    
+    open func setPlaceholder(_ placeholder: String, placeholderColor: UIColor = .lightGray) {
+        self.attributedPlaceholder = NSAttributedString(string: placeholder,
+                                                        attributes: [NSAttributedString.Key.foregroundColor: placeholderColor])
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -174,6 +215,18 @@ open class MaterialTextField : UITextField {
         updateFloatingLabelText()
         
         addSubview(floatingLabel)
+    }
+    
+    fileprivate func setupBottomBorder() {
+        bottomBorderLayer?.removeFromSuperlayer()
+        bottomBorderLayer = nil
+        if bottomBorderEnabled {
+            bottomBorderLayer = CALayer()
+            bottomBorderLayer?.frame = CGRect(x: 0, y: layer.bounds.height - self.bottomBorderWidth,
+                                              width: bounds.width, height: self.bottomBorderWidth)
+            bottomBorderLayer?.backgroundColor = self.bottomBorderColor.cgColor
+            layer.addSublayer(bottomBorderLayer!)
+        }
     }
     
     override open func layoutSubviews() {
