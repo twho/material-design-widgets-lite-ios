@@ -67,7 +67,7 @@ open class MaterialButton: UIButton {
         }
     }
     /**
-     
+     Button style for light mode and dark mode use. Only available on iOS 13 or later.
      */
     @available(iOS 13.0, *)
     public enum ButtonStyle {
@@ -161,7 +161,7 @@ open class MaterialButton: UIButton {
                             cornerRadius: CGFloat = 12.0, withShadow: Bool = false, buttonStyle: ButtonStyle) {
         switch buttonStyle {
         case .fill:
-            self.init(icon: icon, text: text, font: font, textColor: .label, bgColor: .systemFill, withShadow: withShadow)
+            self.init(icon: icon, text: text, font: font, textColor: .label, bgColor: .systemFill, cornerRadius: cornerRadius, withShadow: withShadow)
         case .outline:
             self.init(icon: icon, text: text, font: font, textColor: .label, bgColor: .clear, withShadow: withShadow)
             self.setCornerBorder(color: .label, cornerRadius: cornerRadius)
