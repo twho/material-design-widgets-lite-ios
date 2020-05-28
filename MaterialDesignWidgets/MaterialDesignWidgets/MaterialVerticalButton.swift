@@ -75,6 +75,14 @@ open class MaterialVerticalButton: UIControl {
             rippleLayer.superLayerDidResize()
         }
     }
+    /**
+     Vertical button style for light mode and dark mode use. Only available on iOS 13 or later.
+     */
+    @available(iOS 13.0, *)
+    public enum VerticalButtonStyle {
+        case fill
+        case outline
+    }
     
     open lazy var rippleLayer: RippleLayer = RippleLayer(withView: self)
     
@@ -94,22 +102,58 @@ open class MaterialVerticalButton: UIControl {
         setupLayer()
         addViews()
     }
-    
-    public convenience init(icon: UIImage, title: String, font: UIFont? = nil, foregroundColor: UIColor, useOriginalImg: Bool = false, bgColor: UIColor = .white, cornerRadius: CGFloat = 0.0) {
+    /**
+     Convenience init of material design vertical aligned button with required parameters.
+     
+     - Parameter icon:            The icon of the button.
+     - Parameter text:            The title of the button.
+     - Parameter font:            The font of the button title.
+     - Parameter foregroundColor: The foreground color of the button. It applies to title. It applies to icon if the useOriginalImg is false.
+     - Parameter bgColor:         The background color of the button.
+     - Parameter useOriginalImg:  To determine whether use the original button image or paint it with color.
+     - Parameter cornerRadius:    The corner radius of the button. Used to set rounded corner.
+    */
+    public convenience init(icon: UIImage, text: String, font: UIFont? = nil,
+                            foregroundColor: UIColor, bgColor: UIColor = .white,
+                            useOriginalImg: Bool = false, cornerRadius: CGFloat = 0.0) {
         self.init()
         imageView = UIImageView(image: useOriginalImg ? icon : icon.colored(foregroundColor))
         label = UILabel()
-        label.text = title
+        label.text = text
         label.textColor = foregroundColor
         label.textAlignment = .center
         if let font = font {
             label.font = font
         }
         self.cornerRadius = cornerRadius
-        self.setCornerBorder(color: bgColor, cornerRadius: cornerRadius)
+        self.setCornerBorder(cornerRadius: cornerRadius)
         self.backgroundColor = bgColor
         setupLayer()
         addViews()
+    }
+    /**
+     Convenience init of material design vertical aligned button using system default colors. This initializer
+     reflects dark mode colors on iOS 13 or later platforms. However, it will ignore any custom colors
+     set to the vertical aligned button.
+     
+     - Parameter icon:           The icon of the button.
+     - Parameter text:           The title of the button.
+     - Parameter font:           The font of the button title.
+     - Parameter useOriginalImg: To determine whether use the original button image or paint it with color.
+     - Parameter cornerRadius:   The corner radius of the button. Used to set rounded corner.
+    */
+    @available(iOS 13.0, *)
+    public convenience init(icon: UIImage, text: String, font: UIFont? = nil,
+                            useOriginalImg: Bool = false, cornerRadius: CGFloat = 0.0, buttonStyle: VerticalButtonStyle) {
+        switch buttonStyle {
+        case .fill:
+            self.init(icon: icon, text: text, font: font, foregroundColor: .label, bgColor: .systemFill,
+                      useOriginalImg: useOriginalImg, cornerRadius: cornerRadius)
+        case .outline:
+            self.init(icon: icon, text: text, font: font, foregroundColor: .label, bgColor: .clear,
+                      useOriginalImg: useOriginalImg, cornerRadius: cornerRadius)
+            self.setCornerBorder(color: .label, cornerRadius: cornerRadius)
+        }
     }
     
     open func addViews() {

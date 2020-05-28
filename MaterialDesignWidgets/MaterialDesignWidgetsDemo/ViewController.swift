@@ -44,7 +44,7 @@ class ViewController: UIViewController {
         stackView = UIStackView(axis: .vertical, distribution: .fillEqually, spacing: self.view.frame.height * 0.01)
         self.view.addSubViews([topSegmentControl, stackView])
         
-        topSegmentControl.selectedSegmentIndex = 1
+        topSegmentControl.selectedSegmentIndex = 0
         topSegmentDidChange(topSegmentControl)
     }
     /**
@@ -173,9 +173,9 @@ enum WidgetType: String {
                 // Feel free to tune one by yourself if you still need a outline shadow button.
                 return MaterialButton(text: self.rawValue, cornerRadius: 15.0, withShadow: true, buttonStyle: .fill)
             case .verticalButton:
-                let btn1 = MaterialVerticalButton(icon: #imageLiteral(resourceName: "ic_home_fill"), title: "Fill", foregroundColor: .black, bgColor: .white, cornerRadius: 18.0)
-                let btn2 = MaterialVerticalButton(icon: #imageLiteral(resourceName: "ic_home_color"), title: "Color", foregroundColor: .black, useOriginalImg: true, bgColor: .white, cornerRadius: 18.0)
-                let btn3 = MaterialVerticalButton(icon: #imageLiteral(resourceName: "ic_home_outline"), title: "Outline", foregroundColor: .white, bgColor: .black, cornerRadius: 18.0)
+                let btn1 = MaterialVerticalButton(icon: #imageLiteral(resourceName: "ic_home_fill"), text: "Fill", cornerRadius: 18.0, buttonStyle: .fill)
+                let btn2 = MaterialVerticalButton(icon: #imageLiteral(resourceName: "ic_home_color"), text: "Color", useOriginalImg: true, cornerRadius: 18.0, buttonStyle: .fill)
+                let btn3 = MaterialVerticalButton(icon: #imageLiteral(resourceName: "ic_home_outline"), text: "Outline", cornerRadius: 18.0, buttonStyle: .outline)
                 let stack = UIStackView(arrangedSubviews: [btn1, btn2, btn3], axis: .horizontal, distribution: .fillEqually, spacing: 10.0)
                 return stack
             case .textField:
@@ -220,9 +220,9 @@ enum WidgetType: String {
                 let stack = UIStackView(arrangedSubviews: [btnLeft, btnRight], axis: .horizontal, distribution: .fillEqually, spacing: 10.0)
                 return stack
             case .verticalButton:
-                let btn1 = MaterialVerticalButton(icon: #imageLiteral(resourceName: "ic_home_fill"), title: "Fill", foregroundColor: .black, bgColor: .white, cornerRadius: 18.0)
-                let btn2 = MaterialVerticalButton(icon: #imageLiteral(resourceName: "ic_home_color"), title: "Color", foregroundColor: .black, useOriginalImg: true, bgColor: .white, cornerRadius: 18.0)
-                let btn3 = MaterialVerticalButton(icon: #imageLiteral(resourceName: "ic_home_outline"), title: "Outline", foregroundColor: .white, bgColor: .black, cornerRadius: 18.0)
+                let btn1 = MaterialVerticalButton(icon: #imageLiteral(resourceName: "ic_home_fill"), text: "Fill", foregroundColor: .black, bgColor: .white, cornerRadius: 18.0)
+                let btn2 = MaterialVerticalButton(icon: #imageLiteral(resourceName: "ic_home_color"), text: "Color", foregroundColor: .black, bgColor: .white, useOriginalImg: true, cornerRadius: 18.0)
+                let btn3 = MaterialVerticalButton(icon: #imageLiteral(resourceName: "ic_home_outline"), text: "Outline", foregroundColor: .white, bgColor: .black, cornerRadius: 18.0)
                 let stack = UIStackView(arrangedSubviews: [btn1, btn2, btn3], axis: .horizontal, distribution: .fillEqually, spacing: 10.0)
                 return stack
             case .textField:
