@@ -9,7 +9,7 @@
 import UIKit
 import MaterialDesignWidgets
 
-class ViewController: UIViewController {
+class DemoViewController: UIViewController {
     
     private var stackView: UIStackView!
     private var topSegmentControl: UISegmentedControl!
@@ -28,22 +28,36 @@ class ViewController: UIViewController {
         .shadowButton,
         .loadingIndicator
     ]
-
+    // loadView
+    override func loadView() {
+        super.loadView()
+        topSegmentControl = UISegmentedControl(items: ["Widgets", "Buttons"])
+        stackView = UIStackView(axis: .vertical, distribution: .fill, spacing: self.view.frame.height * 0.01)
+        self.view.addSubViews([topSegmentControl, stackView])
+        // AutoLayout
+        let height = self.view.frame.height
+        let width = self.view.frame.width
+        
+        self.topSegmentControl.heightAnchor.constraint(equalToConstant: 30.0).isActive = true
+        self.topSegmentControl.setAnchors(top: self.view, tConst: 0.05*height,
+                                          left: self.view, lConst: 0.05*width,
+                                          right: self.view, rConst: -0.05*width)
+        self.stackView.setAnchors(left: self.view, lConst: 0.05*width,
+                                  right: self.view, rConst: -0.05*width)
+        self.stackView.topAnchor.constraint(equalTo: self.topSegmentControl.bottomAnchor, constant: 0.03*height).isActive = true
+    }
+    // viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.hideKeyboardWhenTappedAround()
-        topSegmentControl = UISegmentedControl(items: ["All Widgets", "Buttons"])
+        
         if #available(iOS 13.0, *) {
             self.view.backgroundColor = UIColor.systemBackground
             topSegmentControl.selectedSegmentTintColor = UIColor.systemFill
         }
         topSegmentControl.tintColor = .black
-        
         topSegmentControl.addTarget(self, action: #selector(topSegmentDidChange(_:)), for: .valueChanged)
-        stackView = UIStackView(axis: .vertical, distribution: .fill, spacing: self.view.frame.height * 0.01)
-        self.view.addSubViews([topSegmentControl, stackView])
-        
         topSegmentControl.selectedSegmentIndex = 0
         topSegmentDidChange(topSegmentControl)
     }
@@ -68,9 +82,7 @@ class ViewController: UIViewController {
                 label.textColor = .label
             }
             stackView.addArrangedSubview(label)
-            if let last = stackView.arrangedSubviews.last {
-                last.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.06).isActive = true
-            }
+            label.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.06).isActive = true
             
             if type == .loadingButton, let stack = type.widget as? UIStackView {
                 for subView in stack.arrangedSubviews {
@@ -131,17 +143,6 @@ class ViewController: UIViewController {
     @objc func tapLoadingButton(sender: MaterialButton) {
         sender.isLoading = !sender.isLoading
         sender.isLoading ? sender.showLoader(userInteraction: true) : sender.hideLoader()
-    }
-    // AutoLayout
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        let height = self.view.frame.height
-        let width = self.view.frame.width
-        self.topSegmentControl.setConstraintsToView(top: self.view, tConst: 0.08*height, left: self.view, lConst: 0.05*width, right: self.view, rConst: -0.05*width)
-        self.stackView.setConstraintsToView(left: self.view, lConst: 0.05*width, right: self.view, rConst: -0.05*width)
-        self.topSegmentControl.heightAnchor.constraint(equalToConstant: 30.0).isActive = true
-        self.view.addConstraint(NSLayoutConstraint(item: self.stackView!, attribute: .top, relatedBy: .equal, toItem: topSegmentControl, attribute: .bottom, multiplier: 1.0, constant: 0.03*height))
-        self.view.layoutIfNeeded()
     }
 }
 

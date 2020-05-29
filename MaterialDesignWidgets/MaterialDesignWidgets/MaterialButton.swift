@@ -66,6 +66,11 @@ open class MaterialButton: UIButton {
             rippleLayer.backgroundAnimationEnabled = backgroundAnimationEnabled
         }
     }
+    @IBInspectable open var bgColor: UIColor = .darkGray {
+        didSet {
+            self.backgroundColor = bgColor
+        }
+    }
     /**
      Button style for light mode and dark mode use. Only available on iOS 13 or later.
      */
@@ -136,7 +141,10 @@ open class MaterialButton: UIButton {
             self.indicator.color = .white
         }
         
-        self.backgroundColor = bgColor
+        defer {
+            self.bgColor = bgColor
+        }
+        
         self.setBackgroundImage(UIImage(color: .lightGray), for: .disabled)
         self.contentEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
         self.setCornerBorder(cornerRadius: cornerRadius)
