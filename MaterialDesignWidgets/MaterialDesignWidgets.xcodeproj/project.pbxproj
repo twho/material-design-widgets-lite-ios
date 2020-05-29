@@ -12,12 +12,12 @@
 		301E3142228E6501000E9BB1 /* MaterialDesignWidgets.h in Headers */ = {isa = PBXBuildFile; fileRef = 301E3134228E6501000E9BB1 /* MaterialDesignWidgets.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		301E314C228E650F000E9BB1 /* RippleLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301E314B228E650F000E9BB1 /* RippleLayer.swift */; };
 		301E3150228E658E000E9BB1 /* MaterialLoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301E314F228E658E000E9BB1 /* MaterialLoadingIndicator.swift */; };
-		301E3152228E65CF000E9BB1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301E3151228E65CF000E9BB1 /* Extensions.swift */; };
+		301E3152228E65CF000E9BB1 /* MDExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301E3151228E65CF000E9BB1 /* MDExtensions.swift */; };
 		301E3154228E6885000E9BB1 /* MaterialTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301E3153228E6885000E9BB1 /* MaterialTextField.swift */; };
 		301E3156228F5149000E9BB1 /* MaterialVerticalButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301E3155228F5149000E9BB1 /* MaterialVerticalButton.swift */; };
 		301E3158228F5246000E9BB1 /* MaterialTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301E3157228F5246000E9BB1 /* MaterialTableViewCell.swift */; };
 		301E3160228F52E3000E9BB1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301E315F228F52E3000E9BB1 /* AppDelegate.swift */; };
-		301E3162228F52E3000E9BB1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301E3161228F52E3000E9BB1 /* ViewController.swift */; };
+		301E3162228F52E3000E9BB1 /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301E3161228F52E3000E9BB1 /* DemoViewController.swift */; };
 		301E3165228F52E3000E9BB1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 301E3163228F52E3000E9BB1 /* Main.storyboard */; };
 		301E3167228F52E4000E9BB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 301E3166228F52E4000E9BB1 /* Assets.xcassets */; };
 		301E316A228F52E4000E9BB1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 301E3168228F52E4000E9BB1 /* LaunchScreen.storyboard */; };
@@ -26,6 +26,12 @@
 		301E31742290F20C000E9BB1 /* MaterialDesignWidgets.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 301E3131228E6501000E9BB1 /* MaterialDesignWidgets.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		301E31792290F8E1000E9BB1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301E31782290F8E1000E9BB1 /* Extensions.swift */; };
 		30EF3A9122AD8858008948A6 /* MaterialSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EF3A9022AD8858008948A6 /* MaterialSegmentedControl.swift */; };
+		6863EDF22480CDFE001412EA /* WidgetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6863EDF02480CDFE001412EA /* WidgetsViewController.swift */; };
+		6863EDF32480CDFE001412EA /* WidgetsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6863EDF12480CDFE001412EA /* WidgetsViewController.xib */; };
+		6863EDF62480CE0C001412EA /* ButtonsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6863EDF42480CE0C001412EA /* ButtonsViewController.swift */; };
+		6863EDF72480CE0C001412EA /* ButtonsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6863EDF52480CE0C001412EA /* ButtonsViewController.xib */; };
+		689575D224808D0B006F319B /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689575D124808D0B006F319B /* MenuViewController.swift */; };
+		689575D424809F2A006F319B /* StoryboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689575D324809F2A006F319B /* StoryboardViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,13 +74,13 @@
 		301E3141228E6501000E9BB1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		301E314B228E650F000E9BB1 /* RippleLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RippleLayer.swift; sourceTree = "<group>"; };
 		301E314F228E658E000E9BB1 /* MaterialLoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialLoadingIndicator.swift; sourceTree = "<group>"; };
-		301E3151228E65CF000E9BB1 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		301E3151228E65CF000E9BB1 /* MDExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDExtensions.swift; sourceTree = "<group>"; };
 		301E3153228E6885000E9BB1 /* MaterialTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialTextField.swift; sourceTree = "<group>"; };
 		301E3155228F5149000E9BB1 /* MaterialVerticalButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialVerticalButton.swift; sourceTree = "<group>"; };
 		301E3157228F5246000E9BB1 /* MaterialTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialTableViewCell.swift; sourceTree = "<group>"; };
 		301E315D228F52E3000E9BB1 /* MaterialDesignWidgetsDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MaterialDesignWidgetsDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		301E315F228F52E3000E9BB1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		301E3161228F52E3000E9BB1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		301E3161228F52E3000E9BB1 /* DemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoViewController.swift; sourceTree = "<group>"; };
 		301E3164228F52E3000E9BB1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		301E3166228F52E4000E9BB1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		301E3169228F52E4000E9BB1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -82,6 +88,12 @@
 		301E3171228F5619000E9BB1 /* MaterialButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialButton.swift; sourceTree = "<group>"; };
 		301E31782290F8E1000E9BB1 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		30EF3A9022AD8858008948A6 /* MaterialSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialSegmentedControl.swift; sourceTree = "<group>"; };
+		6863EDF02480CDFE001412EA /* WidgetsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetsViewController.swift; sourceTree = "<group>"; };
+		6863EDF12480CDFE001412EA /* WidgetsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WidgetsViewController.xib; sourceTree = "<group>"; };
+		6863EDF42480CE0C001412EA /* ButtonsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsViewController.swift; sourceTree = "<group>"; };
+		6863EDF52480CE0C001412EA /* ButtonsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ButtonsViewController.xib; sourceTree = "<group>"; };
+		689575D124808D0B006F319B /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		689575D324809F2A006F319B /* StoryboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,7 +153,7 @@
 				30EF3A9022AD8858008948A6 /* MaterialSegmentedControl.swift */,
 				301E3157228F5246000E9BB1 /* MaterialTableViewCell.swift */,
 				301E3153228E6885000E9BB1 /* MaterialTextField.swift */,
-				301E3151228E65CF000E9BB1 /* Extensions.swift */,
+				301E3151228E65CF000E9BB1 /* MDExtensions.swift */,
 				301E3134228E6501000E9BB1 /* MaterialDesignWidgets.h */,
 				301E3135228E6501000E9BB1 /* Info.plist */,
 			);
@@ -161,14 +173,28 @@
 			isa = PBXGroup;
 			children = (
 				301E315F228F52E3000E9BB1 /* AppDelegate.swift */,
-				301E3161228F52E3000E9BB1 /* ViewController.swift */,
+				689575D124808D0B006F319B /* MenuViewController.swift */,
+				301E3161228F52E3000E9BB1 /* DemoViewController.swift */,
 				301E31782290F8E1000E9BB1 /* Extensions.swift */,
-				301E3163228F52E3000E9BB1 /* Main.storyboard */,
+				6863EDEF2480CDC3001412EA /* Storyboard */,
 				301E3166228F52E4000E9BB1 /* Assets.xcassets */,
 				301E3168228F52E4000E9BB1 /* LaunchScreen.storyboard */,
 				301E316B228F52E4000E9BB1 /* Info.plist */,
 			);
 			path = MaterialDesignWidgetsDemo;
+			sourceTree = "<group>";
+		};
+		6863EDEF2480CDC3001412EA /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				689575D324809F2A006F319B /* StoryboardViewController.swift */,
+				6863EDF02480CDFE001412EA /* WidgetsViewController.swift */,
+				6863EDF12480CDFE001412EA /* WidgetsViewController.xib */,
+				6863EDF42480CE0C001412EA /* ButtonsViewController.swift */,
+				6863EDF52480CE0C001412EA /* ButtonsViewController.xib */,
+				301E3163228F52E3000E9BB1 /* Main.storyboard */,
+			);
+			path = Storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -301,6 +327,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6863EDF72480CE0C001412EA /* ButtonsViewController.xib in Resources */,
+				6863EDF32480CDFE001412EA /* WidgetsViewController.xib in Resources */,
 				301E316A228F52E4000E9BB1 /* LaunchScreen.storyboard in Resources */,
 				301E3167228F52E4000E9BB1 /* Assets.xcassets in Resources */,
 				301E3165228F52E3000E9BB1 /* Main.storyboard in Resources */,
@@ -320,7 +348,7 @@
 				301E3154228E6885000E9BB1 /* MaterialTextField.swift in Sources */,
 				301E3150228E658E000E9BB1 /* MaterialLoadingIndicator.swift in Sources */,
 				30EF3A9122AD8858008948A6 /* MaterialSegmentedControl.swift in Sources */,
-				301E3152228E65CF000E9BB1 /* Extensions.swift in Sources */,
+				301E3152228E65CF000E9BB1 /* MDExtensions.swift in Sources */,
 				301E3158228F5246000E9BB1 /* MaterialTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -337,7 +365,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				301E3162228F52E3000E9BB1 /* ViewController.swift in Sources */,
+				6863EDF22480CDFE001412EA /* WidgetsViewController.swift in Sources */,
+				301E3162228F52E3000E9BB1 /* DemoViewController.swift in Sources */,
+				689575D424809F2A006F319B /* StoryboardViewController.swift in Sources */,
+				689575D224808D0B006F319B /* MenuViewController.swift in Sources */,
+				6863EDF62480CE0C001412EA /* ButtonsViewController.swift in Sources */,
 				301E31792290F8E1000E9BB1 /* Extensions.swift in Sources */,
 				301E3160228F52E3000E9BB1 /* AppDelegate.swift in Sources */,
 			);
@@ -597,7 +629,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 588Y89GTAL;
+				DEVELOPMENT_TEAM = XM5XV26R5J;
 				INFOPLIST_FILE = MaterialDesignWidgetsDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -617,7 +649,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 588Y89GTAL;
+				DEVELOPMENT_TEAM = XM5XV26R5J;
 				INFOPLIST_FILE = MaterialDesignWidgetsDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (

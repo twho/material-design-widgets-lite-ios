@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Vpe-zR-Cfb">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Demo App-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="MenuViewController" customModule="MaterialDesignWidgetsDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="dof-PI-aGe">
+                                <rect key="frame" x="82" y="344" width="250" height="120"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dVV-mD-YJu" userLabel="Build Programmatically" customClass="MaterialButton" customModule="MaterialDesignWidgets">
+                                        <rect key="frame" x="0.0" y="0.0" width="250" height="50"/>
+                                        <state key="normal" title="Build Programmatically">
+                                            <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="bgColor">
+                                                <color key="value" systemColor="systemFillColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.50196078430000002" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="15"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <segue destination="x6e-HX-iW6" kind="show" id="OSh-2v-fwd"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1YB-ia-G6K" customClass="MaterialButton" customModule="MaterialDesignWidgets">
+                                        <rect key="frame" x="0.0" y="70" width="250" height="50"/>
+                                        <state key="normal" title="Build with Storyboard">
+                                            <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="bgColor">
+                                                <color key="value" systemColor="systemFillColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.50196078430000002" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="15"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <segue destination="H9X-zy-RSv" kind="show" id="EQ0-RG-NYp"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="1YB-ia-G6K" firstAttribute="centerX" secondItem="dof-PI-aGe" secondAttribute="centerX" id="P8S-er-fUM"/>
+                                    <constraint firstAttribute="height" constant="120" id="iOj-PP-VTr"/>
+                                    <constraint firstAttribute="width" constant="250" id="xH4-on-U0e"/>
+                                </constraints>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="2ML-02-gtb">
+                                <rect key="frame" x="16" y="258" width="382" height="56"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Material Design Widgets" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="MG5-1d-h8o">
+                                        <rect key="frame" x="0.0" y="0.0" width="382" height="26.5"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="version 0.1.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="iwB-RG-ADG">
+                                        <rect key="frame" x="0.0" y="34.5" width="382" height="21.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="dof-PI-aGe" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="I9E-p0-oD6"/>
+                            <constraint firstItem="2ML-02-gtb" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="Wlz-mf-cA4"/>
+                            <constraint firstItem="dof-PI-aGe" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="cpA-dT-3pD"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="2ML-02-gtb" secondAttribute="trailing" constant="16" id="wLD-PT-HWd"/>
+                            <constraint firstItem="dof-PI-aGe" firstAttribute="top" secondItem="2ML-02-gtb" secondAttribute="bottom" constant="30" id="yIM-dR-V6f"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Demo App" id="l7L-0p-teL">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="X0p-Lv-FDh"/>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="139" y="119"/>
+        </scene>
+        <!--Material Design Widgets-->
+        <scene sceneID="D6l-hn-Yve">
+            <objects>
+                <navigationController title="Material Design Widgets" id="Vpe-zR-Cfb" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="o8D-se-2X7">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="barTintColor" systemColor="tertiarySystemBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                            <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="JN3-Cj-SK2"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rE7-Ay-hf1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-687" y="119"/>
+        </scene>
+        <!--Build with Storyboard-->
+        <scene sceneID="IUJ-6l-kkp">
+            <objects>
+                <viewController id="H9X-zy-RSv" customClass="StoryboardViewController" customModule="MaterialDesignWidgetsDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hU4-Gb-iF5">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="jrC-KA-XeC">
+                                <rect key="frame" x="20" y="16" width="374" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="2lM-Na-ymJ"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Widgets"/>
+                                    <segment title="Buttons"/>
+                                </segments>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="selectedSegmentTintColor" systemColor="systemFillColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.50196078430000002" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="topSegmentDidChange:" destination="H9X-zy-RSv" eventType="valueChanged" id="Gn8-z5-GT6"/>
+                                </connections>
+                            </segmentedControl>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1HR-xf-SkM">
+                                <rect key="frame" x="0.0" y="62" width="414" height="712"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="eH4-Pl-RTd" firstAttribute="trailing" secondItem="1HR-xf-SkM" secondAttribute="trailing" id="H1y-Ox-VDV"/>
+                            <constraint firstItem="jrC-KA-XeC" firstAttribute="top" secondItem="eH4-Pl-RTd" secondAttribute="top" constant="16" id="IkR-xg-Prw"/>
+                            <constraint firstItem="1HR-xf-SkM" firstAttribute="leading" secondItem="eH4-Pl-RTd" secondAttribute="leading" id="bbb-Bp-5cr"/>
+                            <constraint firstItem="1HR-xf-SkM" firstAttribute="top" secondItem="jrC-KA-XeC" secondAttribute="bottom" constant="16" id="eEP-r5-5M7"/>
+                            <constraint firstItem="1HR-xf-SkM" firstAttribute="bottom" secondItem="eH4-Pl-RTd" secondAttribute="bottom" id="eUV-oo-GV7"/>
+                            <constraint firstItem="jrC-KA-XeC" firstAttribute="leading" secondItem="eH4-Pl-RTd" secondAttribute="leading" constant="20" id="jgq-Ul-zP4"/>
+                            <constraint firstItem="eH4-Pl-RTd" firstAttribute="trailing" secondItem="jrC-KA-XeC" secondAttribute="trailing" constant="20" id="wpb-cO-IJN"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="eH4-Pl-RTd"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Build with Storyboard" id="b4p-hx-QOn">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="KKH-Qc-nnZ"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="contentView" destination="1HR-xf-SkM" id="RT3-HH-dQB"/>
+                        <outlet property="topSegmentedControl" destination="jrC-KA-XeC" id="Gan-TD-UEG"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Tpe-jh-cbC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1134.7826086956522" y="118.52678571428571"/>
+        </scene>
+        <!--Build Programmatically-->
+        <scene sceneID="4Rp-eW-mdl">
+            <objects>
+                <viewController id="x6e-HX-iW6" customClass="DemoViewController" customModule="MaterialDesignWidgetsDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Py4-ZG-mzs">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="c7z-u2-GLz"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Build Programmatically" id="Kc5-Yr-Qne">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="Ox8-zU-XvX"/>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="L9f-PF-6yZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1135" y="851"/>
+        </scene>
+    </scenes>
+</document>

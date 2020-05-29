@@ -192,8 +192,7 @@ enum WidgetType: String {
                 return stack
             case .segmentedControlFill:
                 var segCtrl: MaterialSegmentedControl!
-                segCtrl = MaterialSegmentedControl(selectorStyle: .fill)
-                segCtrl.setCornerBorder(cornerRadius: 18.0)
+                segCtrl = MaterialSegmentedControl(selectorStyle: .fill, cornerRadius: 18.0)
                 return segCtrl
             case .segmentedControlOutline:
                 return MaterialSegmentedControl(selectorStyle: .outline)
@@ -239,8 +238,8 @@ enum WidgetType: String {
                 return stack
             case .segmentedControlFill:
                 var segCtrl: MaterialSegmentedControl!
-                segCtrl = MaterialSegmentedControl(selectorStyle: .fill, fgColor: .black, selectedFgColor: .white, selectorColor: .black, bgColor: .lightGray)
-                segCtrl.setCornerBorder(cornerRadius: 18.0)
+                segCtrl = MaterialSegmentedControl(selectorStyle: .fill, cornerRadius: 18.0,
+                                                   fgColor: .black, selectedFgColor: .white, selectorColor: .black, bgColor: .lightGray)
                 return segCtrl
             case .segmentedControlOutline:
                 return MaterialSegmentedControl(selectorStyle: .outline, fgColor: .black, selectedFgColor: .black, selectorColor: .black, bgColor: .white)

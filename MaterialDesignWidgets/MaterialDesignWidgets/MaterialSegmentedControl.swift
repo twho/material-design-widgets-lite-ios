@@ -2,7 +2,8 @@
 //  MaterialSegmentedControl.swift
 //  MaterialDesignWidgets
 //
-//  Created by Michael Ho on 04/27/20.
+//  Created by Michael Ho on 04/27/19.
+//  Updated by Michael Ho on 05/27/20.
 //  Copyright © 2019 Michael Ho. All rights reserved.
 //
 
@@ -26,6 +27,12 @@ open class MaterialSegmentedControl: UIControl {
             layer.borderWidth = borderWidth
         }
     }
+    
+    @IBInspectable open var cornerRadius: CGFloat = 0.0 {
+        didSet {
+            self.setCornerBorder(cornerRadius: cornerRadius)
+        }
+    }
     /**
      The foreground color of the segment.
      */
@@ -42,13 +49,18 @@ open class MaterialSegmentedControl: UIControl {
             updateViews()
         }
     }
-    
+
     public enum SelectorStyle {
         case fill
         case outline
         case line
     }
-    public var selectorStyle: SelectorStyle = .line {
+    /**
+     The selector UI type. See demo app for their looks.
+     
+     TODO: Will make it available in storyboard with @IBInspectable.
+    */
+     public var selectorStyle: SelectorStyle = .line {
         didSet {
             updateViews()
         }
@@ -71,7 +83,7 @@ open class MaterialSegmentedControl: UIControl {
     }
     
     required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
     }
     /**
      Convenience initializer of MaterialSegmentedControl.
@@ -83,11 +95,12 @@ open class MaterialSegmentedControl: UIControl {
      - Parameter selectorColor:   The color of the selector.
      - Parameter bgColor:         Background color.
      */
-    public convenience init(segments: [UIButton] = [], selectorStyle: SelectorStyle = .line,
+    public convenience init(segments: [UIButton] = [], selectorStyle: SelectorStyle = .line, cornerRadius: CGFloat = 0.0,
                             fgColor: UIColor, selectedFgColor: UIColor, selectorColor: UIColor, bgColor: UIColor) {
         self.init(frame: .zero)
         
         self.segments = segments
+        self.cornerRadius = cornerRadius
         self.selectorStyle = selectorStyle
         self.foregroundColor = fgColor
         self.selectedForegroundColor = selectedFgColor
@@ -103,13 +116,14 @@ open class MaterialSegmentedControl: UIControl {
      - Parameter selectorStyle: The style of the selector, fill, outline and line are supported.
      */
     @available(iOS 13.0, *)
-    public convenience init(segments: [UIButton] = [], selectorStyle: SelectorStyle = .line) {
+    public convenience init(segments: [UIButton] = [], selectorStyle: SelectorStyle = .line, cornerRadius: CGFloat = 0.0) {
         self.init(frame: .zero)
         
         self.segments = segments
         self.selectorStyle = selectorStyle
         self.foregroundColor = .label
         self.selectedForegroundColor = .label
+        self.cornerRadius = cornerRadius
         switch selectorStyle {
         case .fill:
             self.selectorColor = .secondarySystemFill
