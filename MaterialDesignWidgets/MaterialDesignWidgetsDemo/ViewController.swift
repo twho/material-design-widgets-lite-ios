@@ -41,7 +41,7 @@ class ViewController: UIViewController {
         topSegmentControl.tintColor = .black
         
         topSegmentControl.addTarget(self, action: #selector(topSegmentDidChange(_:)), for: .valueChanged)
-        stackView = UIStackView(axis: .vertical, distribution: .fillEqually, spacing: self.view.frame.height * 0.01)
+        stackView = UIStackView(axis: .vertical, distribution: .fill, spacing: self.view.frame.height * 0.01)
         self.view.addSubViews([topSegmentControl, stackView])
         
         topSegmentControl.selectedSegmentIndex = 0
@@ -68,6 +68,9 @@ class ViewController: UIViewController {
                 label.textColor = .label
             }
             stackView.addArrangedSubview(label)
+            if let last = stackView.arrangedSubviews.last {
+                last.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.06).isActive = true
+            }
             
             if type == .loadingButton, let stack = type.widget as? UIStackView {
                 for subView in stack.arrangedSubviews {
@@ -96,7 +99,6 @@ class ViewController: UIViewController {
             }
             
             if let last = stackView.arrangedSubviews.last {
-                label.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.06).isActive = true
                 last.heightAnchor.constraint(equalTo: self.view.heightAnchor,
                                              multiplier: type == .verticalButton || type == .segmentedControlLineIcon ? 0.1 : 0.06).isActive = true
             }
