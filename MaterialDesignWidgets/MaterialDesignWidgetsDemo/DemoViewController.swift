@@ -39,7 +39,7 @@ class DemoViewController: UIViewController {
         let width = self.view.frame.width
         
         self.topSegmentControl.heightAnchor.constraint(equalToConstant: 30.0).isActive = true
-        self.topSegmentControl.setAnchors(top: self.view, tConst: 0.05*height,
+        self.topSegmentControl.setAnchors(top: self.view, tConst: 0.1*height,
                                           left: self.view, lConst: 0.05*width,
                                           right: self.view, rConst: -0.05*width)
         self.stackView.setAnchors(left: self.view, lConst: 0.05*width,
