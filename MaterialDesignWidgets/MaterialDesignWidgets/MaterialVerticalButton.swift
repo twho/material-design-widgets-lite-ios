@@ -147,7 +147,7 @@ open class MaterialVerticalButton: UIControl {
                             useOriginalImg: Bool = false, cornerRadius: CGFloat = 0.0, buttonStyle: VerticalButtonStyle) {
         switch buttonStyle {
         case .fill:
-            self.init(icon: icon, text: text, font: font, foregroundColor: .label, bgColor: .systemFill,
+            self.init(icon: icon, text: text, font: font, foregroundColor: .label, bgColor: .systemGray3,
                       useOriginalImg: useOriginalImg, cornerRadius: cornerRadius)
         case .outline:
             self.init(icon: icon, text: text, font: font, foregroundColor: .label, bgColor: .clear,
