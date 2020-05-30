@@ -15,7 +15,7 @@ open class MaterialButton: UIButton {
             rippleLayer.maskEnabled = maskEnabled
         }
     }
-    @IBInspectable open var cornerRadius: CGFloat = 12.0 {
+    @IBInspectable open var cornerRadius: CGFloat = 0.0 {
         didSet {
             self.setCornerBorder(cornerRadius: cornerRadius)
             rippleLayer.superLayerDidResize()
@@ -119,7 +119,7 @@ open class MaterialButton: UIButton {
      */
     public convenience init(icon: UIImage? = nil, text: String? = nil, font: UIFont? = nil,
                             textColor: UIColor?, bgColor: UIColor,
-                            cornerRadius: CGFloat = 12.0, withShadow: Bool = false) {
+                            cornerRadius: CGFloat = 0.0, withShadow: Bool = false) {
         self.init()
         
         self.rippleLayerColor = bgColor.getColorTint()
@@ -147,9 +147,10 @@ open class MaterialButton: UIButton {
         
         self.setBackgroundImage(UIImage(color: .lightGray), for: .disabled)
         self.contentEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
-        self.setCornerBorder(cornerRadius: cornerRadius)
+        defer {
+            self.cornerRadius = cornerRadius
+        }
         self.withShadow = withShadow
-        self.cornerRadius = cornerRadius
         setupLayer()
     }
     /**
@@ -166,10 +167,11 @@ open class MaterialButton: UIButton {
     */
     @available(iOS 13.0, *)
     public convenience init(icon: UIImage? = nil, text: String? = nil, font: UIFont? = nil,
-                            cornerRadius: CGFloat = 12.0, withShadow: Bool = false, buttonStyle: ButtonStyle) {
+                            cornerRadius: CGFloat = 0.0, withShadow: Bool = false, buttonStyle: ButtonStyle) {
         switch buttonStyle {
         case .fill:
-            self.init(icon: icon, text: text, font: font, textColor: .label, bgColor: .systemFill, cornerRadius: cornerRadius, withShadow: withShadow)
+            self.init(icon: icon, text: text, font: font, textColor: .label, bgColor: .systemGray3,
+                      cornerRadius: cornerRadius, withShadow: withShadow)
         case .outline:
             self.init(icon: icon, text: text, font: font, textColor: .label, bgColor: .clear, withShadow: withShadow)
             self.setCornerBorder(color: .label, cornerRadius: cornerRadius)
@@ -306,18 +308,21 @@ open class MaterialButton: UIButton {
         shadowAdded = true
 
         shadowLayer = UIView(frame: self.frame)
-
         guard let shadowLayer = shadowLayer else { return }
         if #available(iOS 13.0, *) {
-            shadowLayer.setAsShadow(bounds: bounds, cornerRadius: self.cornerRadius, color: .tertiarySystemBackground)
+            shadowLayer.setAsShadow(bounds: bounds, cornerRadius: self.cornerRadius, color: .systemGray3)
         } else {
             shadowLayer.setAsShadow(bounds: bounds, cornerRadius: self.cornerRadius, color: .lightGray)
         }
         self.superview?.insertSubview(shadowLayer, belowSubview: self)
     }
-    
+
     open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        draw(self.frame)
+        if let shadowLayer = shadowLayer  {
+            shadowLayer.removeFromSuperview()
+            shadowAdded = false
+            draw(self.frame)
+        }
     }
     
     // MARK: Touch
