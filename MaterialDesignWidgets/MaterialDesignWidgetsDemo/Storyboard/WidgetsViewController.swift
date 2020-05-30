@@ -41,7 +41,7 @@ class WidgetsViewController: UIViewController {
      */
     private func setSampleSegments(segmentedControl: MaterialSegmentedControl, radius: CGFloat) {
         for i in 0..<3 {
-            segmentedControl.appendSegment(text: "Segment \(i)", textColor: .gray, bgColor: .clear, cornerRadius: radius)
+            segmentedControl.appendTextSegment(text: "Segment \(i)", textColor: .gray, rippleColor: .lightGray, cornerRadius: radius)
         }
     }
 }

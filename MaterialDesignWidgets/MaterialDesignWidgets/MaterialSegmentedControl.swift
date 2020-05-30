@@ -126,15 +126,15 @@ open class MaterialSegmentedControl: UIControl {
         self.cornerRadius = cornerRadius
         switch selectorStyle {
         case .fill:
-            self.selectorColor = .secondarySystemFill
-            self.backgroundColor = .secondarySystemBackground
+            self.selectorColor = .systemGray3
+            self.backgroundColor = .systemFill
         default:
             self.selectorColor = .label
             self.backgroundColor = .systemBackground
         }
     }
     
-    open func appendIconSegment(icon: UIImage? = nil, preserveIconColor: Bool = true, rippleColor: UIColor = .clear, cornerRadius: CGFloat = 12.0) {
+    open func appendIconSegment(icon: UIImage? = nil, preserveIconColor: Bool = true, rippleColor: UIColor, cornerRadius: CGFloat = 12.0) {
         self.preserveIconColor = preserveIconColor
         let button = MaterialButton(icon: icon, textColor: nil, bgColor: rippleColor, cornerRadius: cornerRadius)
         button.rippleLayerAlpha = 0.15
@@ -142,15 +142,16 @@ open class MaterialSegmentedControl: UIControl {
     }
     
     open func appendSegment(icon: UIImage? = nil, text: String? = nil,
-                            textColor: UIColor? = .white, font: UIFont? = nil, rippleColor: UIColor = .clear,
+                            textColor: UIColor?, font: UIFont? = nil, rippleColor: UIColor,
                             cornerRadius: CGFloat = 12.0) {
         let button = MaterialButton(icon: icon, text: text, textColor: textColor, bgColor: rippleColor, cornerRadius: cornerRadius)
         button.rippleLayerAlpha = 0.15
         self.segments.append(button)
     }
     
-    open func appendSegment(text: String, textColor: UIColor, bgColor: UIColor, cornerRadius: CGFloat = 12.0) {
-        self.appendSegment(icon: nil, text: text, textColor: textColor, rippleColor: bgColor, cornerRadius: cornerRadius)
+    open func appendTextSegment(text: String, textColor: UIColor?, font: UIFont? = nil,
+                                rippleColor: UIColor, cornerRadius: CGFloat = 12.0) {
+        self.appendSegment(text: text, textColor: textColor, font: font, rippleColor: rippleColor, cornerRadius: cornerRadius)
     }
     
     func updateViews() {
@@ -175,7 +176,7 @@ open class MaterialSegmentedControl: UIControl {
         case .fill, .line:
             selector.backgroundColor = selectorColor
         case .outline:
-            selector.setCornerBorder(color: selectorColor, borderWidth: 1.5)
+            selector.setCornerBorder(color: selectorColor, cornerRadius: selector.layer.cornerRadius, borderWidth: 1.5)
         }
         
         subviews.forEach { (view) in

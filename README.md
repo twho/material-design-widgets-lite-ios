@@ -4,10 +4,12 @@
 ## Material Design Widgets - Lightweight
 This framework give you full flexibility to apply any material design widget you would like to use in your app! Please see below steps if you only need to use one or two of the entire package widgets. 
 
-[![Generic badge](https://img.shields.io/badge/Swift-5.0-orange.svg)](https://shields.io/) [![Generic badge](https://img.shields.io/badge/iOS-11.0+-blue.svg)](https://shields.io/)  [![Generic badge](https://img.shields.io/badge/Version-0.1.0-orange.svg)](https://shields.io/) [![Generic badge](https://img.shields.io/badge/pod-1.8.4-lightgrey.svg)](https://shields.io/) [
+[![Generic badge](https://img.shields.io/badge/Swift-5.0-orange.svg)](https://shields.io/) [![Generic badge](https://img.shields.io/badge/iOS-11.0+-blue.svg)](https://shields.io/)  [![Generic badge](https://img.shields.io/badge/Version-0.1.1-orange.svg)](https://shields.io/) [![Generic badge](https://img.shields.io/badge/pod-1.9.2-lightgrey.svg)](https://shields.io/) [
 ![Generic badge](https://img.shields.io/badge/platform-ios-green.svg)](https://shields.io/) 
 
-<img src="gif/overview.gif" alt="overview" width="250"/>
+| Light mode |  Dark mode |
+|:--:| :--:|
+| <img src="gif/overview-light.gif" alt="Overview" width="240"/> | <img src="gif/overview-dark.gif" alt="Overview Dark" width="240"/>  | 
 
 You may download **MaterialDesignWidgetsDemo** to see how its used in your app. 
 
@@ -21,6 +23,17 @@ You may download **MaterialDesignWidgetsDemo** to see how its used in your app.
 - Swift 5.0
 - iOS 11.0+
 
+## Installation
+
+MaterialDesignWidgets is available through [CocoaPods](http://cocoapods.org). To install
+it, simply add the following line to your Podfile:
+
+```
+$ pod 'MaterialDesignWidgets'
+```
+
+If you don't use CocoaPods, you can download the entire project then drag and drop all the classes and use them in your project.
+
 ## Usage
 
 ### Buttons
@@ -33,7 +46,9 @@ You may download **MaterialDesignWidgetsDemo** to see how its used in your app.
 let btnSample1 = MaterialButton(text: "Sample1", cornerRadius: 15.0)
 let btnSample2 = MaterialButton(text: "Sample2", textColor: .black, bgColor: .white)
 ```
-<img src="gif/button.gif" alt="button" width="350"/>
+| Light mode |  Dark mode |
+|:--:| :--:|
+| <img src="gif/button-light.gif" alt="Button" width="350"/> | <img src="gif/button-dark.gif" alt="Button Dark" width="350"/> | 
 
 #### Loading Button
 ```swift
@@ -45,21 +60,26 @@ loadingBtn.addTarget(self, action: #selector(tapLoadingButton(sender:)), for: .t
     sender.isLoading ? sender.showLoader(userInteraction: true) : sender.hideLoader()
 }
 ```
-<img src="gif/loadingButton.gif" alt="loadingButton" width="350"/>
+| Light mode |  Dark mode |
+|:--:| :--:|
+| <img src="gif/loadingbutton-light.gif" alt="Loading Button" width="350"/> | <img src="gif/loadingbutton-dark.gif" alt="Loading Button Dark" width="350"/> | 
 
 #### Shadow Button
 ```swift
 let btnShadow = MaterialButton(text: "Shadow Button", cornerRadius: 15.0, withShadow: true)
 ```
-<img src="gif/shadowButton.gif" alt="shadowButton" width="350"/>
+| Light mode |  Dark mode |
+|:--:| :--:|
+| <img src="gif/shadowButton-light.gif" alt="Shadow Button" width="350"/> | <img src="gif/shadowButton-dark.gif" alt="Shadow Button Dark" width="350"/> | 
 
 #### Vertical Aligned Button
 ```swift
 let img = UIImage(named: "Your image name")
 let btnV = MaterialVerticalButton(icon: img, title: "Fill", foregroundColor: .black, bgColor: .white)
 ```
-
-<img src="gif/verticalButton.gif" alt="verticalButton" width="350"/>
+| Light mode |  Dark mode |
+|:--:| :--:|
+| <img src="gif/verticalButton-light.gif" alt="Vertical Aligned Button" width="350"/> | <img src="gif/verticalButton-dark.gif" alt="Vertical Aligned Button Dark" width="350"/> | 
 
 ### Segmented Control
 >  Required File - **MaterialSegmentedControl.swift**
@@ -71,29 +91,33 @@ let sgFilled = MaterialSegmentedControl(selectorStyle: .fill, fgColor: .black, s
 sgFilled.backgroundColor = .lightGray
 sgFilled.setCornerBorder(cornerRadius: 18.0)
 ```
-
-<img src="gif/segmentFill.gif" alt="segmentFill" width="350"/>
+| Light mode |  Dark mode |
+|:--:| :--:|
+| <img src="gif/segmentFill-light.gif" alt="Segmented Control Filled" width="350"/> | <img src="gif/segmentFill-dark.gif" alt="Segmented Control Filled Dark" width="350"/> | 
 
 #### Outline
 ```swift
 let sgOutline = MaterialSegmentedControl(selectorStyle: .outline, fgColor: .black, selectedFgColor: .black, selectorColor: .black, bgColor: .white)
 ```
-
-<img src="gif/segmentOutline.gif" alt="segmentOutline" width="350"/>
+| Light mode |  Dark mode |
+|:--:| :--:|
+| <img src="gif/segmentOutline-light.gif" alt="Segmented Control Outline" width="350"/> | <img src="gif/segmentOutline-dark.gif" alt="Segmented Control Outline Dark" width="350"/> | 
 
 #### Line Text
 ```swift
 let sgLine = MaterialSegmentedControl(selectorStyle: .line, fgColor: .black, selectedFgColor: .black, selectorColor: .black, bgColor: .white)
 ```
-
-<img src="gif/segmentLineText.gif" alt="segmentLineText" width="350"/>
+| Light mode |  Dark mode |
+|:--:| :--:|
+| <img src="gif/segmentLineText-light.gif" alt="Segmented Control Line Text" width="350"/> | <img src="gif/segmentLineText-dark.gif" alt="Segmented Control Line Text Dark" width="350"/> | 
 
 #### Line Icon
 ```swift
 let sgLineIcon = MaterialSegmentedControl(selectorStyle: .line, fgColor: .black, selectedFgColor: .black, selectorColor: .gray, bgColor: .white)
 ```
-
-<img src="gif/segmentLineIcon.gif" alt="segmentLineIcon" width="350"/>
+| Light mode |  Dark mode |
+|:--:| :--:|
+| <img src="gif/segmentLineIcon-light.gif" alt="Segmented Control Line Icon" width="350"/> | <img src="gif/segmentLineIcon-dark.gif" alt="Segmented Control Line Icon Dark" width="350"/> | 
 
 #### Append Normal Segment
 ```swift
@@ -122,8 +146,9 @@ segCtrl.addTarget(self, action: #selector(yourSegmentedControlValueChangeMethod)
 ```swift
 let textField = MaterialTextField(hint: "TextField", textColor: .black, bgColor: .white)
 ```
-
-<img src="gif/textField.gif" alt="textField" width="350"/>
+| Light mode |  Dark mode |
+|:--:| :--:|
+| <img src="gif/textField-light.gif" alt="TextField" width="350"/> | <img src="gif/textField-dark.gif" alt="TextField Dark" width="350"/> | 
 
 ### Loading Indicator
 > Required file - **MaterialLoadingIndicator.swift**
@@ -133,18 +158,9 @@ indicatorBlack.startAnimating()
 let indicatorGray = MaterialLoadingIndicator(radius: 15.0, color: .gray)
 indicatorGray.startAnimating()
 ```
-<img src="gif/loading.gif" alt="loading" width="350"/>
-
-## Installation
-
-MaterialDesignWidgets is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
-
-```
-$ pod 'MaterialDesignWidgets'
-```
-
-If you don't use CocoaPods, you can download the entire project then drag and drop all the classes and use them in your project.
+| Light mode |  Dark mode |
+|:--:| :--:|
+| <img src="gif/loading-light.gif" alt="Loading Indicator" width="350"/> | <img src="gif/loading-dark.gif" alt="Loading Indicator" width="350"/> | 
 
 ## Credits
 * [Material Design](https://material.io/design/)

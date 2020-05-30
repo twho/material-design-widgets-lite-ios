@@ -39,7 +39,7 @@ class DemoViewController: UIViewController {
         let width = self.view.frame.width
         
         self.topSegmentControl.heightAnchor.constraint(equalToConstant: 30.0).isActive = true
-        self.topSegmentControl.setAnchors(top: self.view, tConst: 0.05*height,
+        self.topSegmentControl.setAnchors(top: self.view, tConst: 0.1*height,
                                           left: self.view, lConst: 0.05*width,
                                           right: self.view, rConst: -0.05*width)
         self.stackView.setAnchors(left: self.view, lConst: 0.05*width,
@@ -54,7 +54,7 @@ class DemoViewController: UIViewController {
         
         if #available(iOS 13.0, *) {
             self.view.backgroundColor = UIColor.systemBackground
-            topSegmentControl.selectedSegmentTintColor = UIColor.systemFill
+            topSegmentControl.selectedSegmentTintColor = .systemGray3
         }
         topSegmentControl.tintColor = .black
         topSegmentControl.addTarget(self, action: #selector(topSegmentDidChange(_:)), for: .valueChanged)
@@ -100,7 +100,7 @@ class DemoViewController: UIViewController {
                 case .segmentedControlLineIcon:
                     let icons = [#imageLiteral(resourceName: "ic_home_fill").colored(.darkGray)!, #imageLiteral(resourceName: "ic_home_fill").colored(.gray)!, #imageLiteral(resourceName: "ic_home_fill").colored(.lightGray)!]
                     for i in 0..<3 {
-                        segCtrl.appendIconSegment(icon: icons[i], preserveIconColor: true, rippleColor: .clear, cornerRadius: 0.0)
+                        segCtrl.appendIconSegment(icon: icons[i], preserveIconColor: true, rippleColor: .lightGray, cornerRadius: 0.0)
                     }
                 default:
                     continue
@@ -125,7 +125,7 @@ class DemoViewController: UIViewController {
      */
     private func setSampleSegments(segmentedControl: MaterialSegmentedControl, radius: CGFloat) {
         for i in 0..<3 {
-            segmentedControl.appendSegment(text: "Segment \(i)", textColor: .gray, bgColor: .clear, cornerRadius: radius)
+            segmentedControl.appendTextSegment(text: "Segment \(i)", textColor: .gray, rippleColor: .lightGray, cornerRadius: radius)
         }
     }
     
@@ -185,7 +185,7 @@ enum WidgetType: String {
                 return MaterialTextField(placeholder: "Material Design TextField", bottomBorderEnabled: true)
             case .loadingIndicator:
                 let indicatorBlack = MaterialLoadingIndicator(radius: 15.0, color: .label)
-                let indicatorGray = MaterialLoadingIndicator(radius: 15.0, color: .systemFill)
+                let indicatorGray = MaterialLoadingIndicator(radius: 15.0, color: .systemGray3)
                 indicatorBlack.startAnimating()
                 indicatorGray.startAnimating()
                 let stack = UIStackView(arrangedSubviews: [indicatorBlack, indicatorGray], axis: .horizontal, distribution: .fillEqually, spacing: 10.0)

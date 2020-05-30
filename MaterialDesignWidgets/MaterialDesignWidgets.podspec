@@ -16,8 +16,8 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "MaterialDesignWidgets"
-  spec.version      = "0.1.0"
-  spec.summary      = "Light implementation of material design widgets."
+  spec.version      = "0.1.1"
+  spec.summary      = "Implementation of material design widgets."
 
   # This description is used to generate tags and improve search results.
   #   * Think: What does it do? Why did you write it? What is the focus?

@@ -17,7 +17,6 @@
 		301E3156228F5149000E9BB1 /* MaterialVerticalButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301E3155228F5149000E9BB1 /* MaterialVerticalButton.swift */; };
 		301E3158228F5246000E9BB1 /* MaterialTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301E3157228F5246000E9BB1 /* MaterialTableViewCell.swift */; };
 		301E3160228F52E3000E9BB1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301E315F228F52E3000E9BB1 /* AppDelegate.swift */; };
-		301E3162228F52E3000E9BB1 /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301E3161228F52E3000E9BB1 /* DemoViewController.swift */; };
 		301E3165228F52E3000E9BB1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 301E3163228F52E3000E9BB1 /* Main.storyboard */; };
 		301E3167228F52E4000E9BB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 301E3166228F52E4000E9BB1 /* Assets.xcassets */; };
 		301E316A228F52E4000E9BB1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 301E3168228F52E4000E9BB1 /* LaunchScreen.storyboard */; };
@@ -366,7 +365,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6863EDF22480CDFE001412EA /* WidgetsViewController.swift in Sources */,
-				301E3162228F52E3000E9BB1 /* DemoViewController.swift in Sources */,
 				689575D424809F2A006F319B /* StoryboardViewController.swift in Sources */,
 				689575D224808D0B006F319B /* MenuViewController.swift in Sources */,
 				6863EDF62480CE0C001412EA /* ButtonsViewController.swift in Sources */,
@@ -629,7 +627,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = XM5XV26R5J;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = MaterialDesignWidgetsDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -649,7 +647,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = XM5XV26R5J;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = MaterialDesignWidgetsDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
