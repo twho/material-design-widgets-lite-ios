@@ -139,7 +139,7 @@ open class MaterialButton: UIButton {
      - Parameter withShadow:   set true to show the shadow of the button.
      */
     public convenience init(icon: UIImage? = nil, text: String? = nil, font: UIFont? = nil,
-                            textColor: UIColor?, bgColor: UIColor, borderColor: UIColor? = nil,
+                            textColor: UIColor? = nil, bgColor: UIColor, borderColor: UIColor? = nil,
                             cornerRadius: CGFloat = 0.0, withShadow: Bool = false) {
         self.init()
         
