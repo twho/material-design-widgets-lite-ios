@@ -78,7 +78,7 @@ open class MaterialSegmentedControl: UIControl {
         }
     }
     
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
     }
     
@@ -90,22 +90,25 @@ open class MaterialSegmentedControl: UIControl {
      
      - Parameter segments:        The segment in UIButton form.
      - Parameter selectorStyle:   The style of the selector, fill, outline and line are supported.
+     - Parameter cornerRadius:    The corner radius of the segmented control. Used to crop rounded corner.
      - Parameter fgColor:         The foreground color of the non-selected segment.
      - Parameter selectedFgColor: The foreground color of the selected segment.
      - Parameter selectorColor:   The color of the selector.
      - Parameter bgColor:         Background color.
      */
-    public convenience init(segments: [UIButton] = [], selectorStyle: SelectorStyle = .line, cornerRadius: CGFloat = 0.0,
+    public convenience init(segments: [UIButton] = [], selectorStyle: SelectorStyle = .line, cornerRadius: CGFloat,
                             fgColor: UIColor, selectedFgColor: UIColor, selectorColor: UIColor, bgColor: UIColor) {
         self.init(frame: .zero)
         
         self.segments = segments
-        self.cornerRadius = cornerRadius
         self.selectorStyle = selectorStyle
         self.foregroundColor = fgColor
         self.selectedForegroundColor = selectedFgColor
         self.selectorColor = selectorColor
         self.backgroundColor = bgColor
+        defer {
+            self.cornerRadius = cornerRadius
+        }
     }
     /**
      Convenience init of material design segmentedControl using system default colors. This initializer
@@ -114,16 +117,16 @@ open class MaterialSegmentedControl: UIControl {
      
      - Parameter segments:      The segment in UIButton form.
      - Parameter selectorStyle: The style of the selector, fill, outline and line are supported.
+     - Parameter cornerRadius:  The corner radius of the segmented control. Used to crop rounded corner.
      */
     @available(iOS 13.0, *)
-    public convenience init(segments: [UIButton] = [], selectorStyle: SelectorStyle = .line, cornerRadius: CGFloat = 0.0) {
+    public convenience init(segments: [UIButton] = [], selectorStyle: SelectorStyle = .line, cornerRadius: CGFloat) {
         self.init(frame: .zero)
         
         self.segments = segments
         self.selectorStyle = selectorStyle
         self.foregroundColor = .label
         self.selectedForegroundColor = .label
-        self.cornerRadius = cornerRadius
         switch selectorStyle {
         case .fill:
             self.selectorColor = .systemGray3
@@ -132,26 +135,28 @@ open class MaterialSegmentedControl: UIControl {
             self.selectorColor = .label
             self.backgroundColor = .systemBackground
         }
+        defer {
+            self.cornerRadius = cornerRadius
+        }
     }
     
-    open func appendIconSegment(icon: UIImage? = nil, preserveIconColor: Bool = true, rippleColor: UIColor, cornerRadius: CGFloat = 12.0) {
+    open func appendIconSegment(icon: UIImage? = nil, preserveIconColor: Bool = true, rippleColor: UIColor) {
         self.preserveIconColor = preserveIconColor
-        let button = MaterialButton(icon: icon, textColor: nil, bgColor: rippleColor, cornerRadius: cornerRadius)
+        let button = MaterialButton(icon: icon, textColor: nil, bgColor: rippleColor, cornerRadius: self.cornerRadius)
         button.rippleLayerAlpha = 0.15
         self.segments.append(button)
     }
     
     open func appendSegment(icon: UIImage? = nil, text: String? = nil,
-                            textColor: UIColor?, font: UIFont? = nil, rippleColor: UIColor,
-                            cornerRadius: CGFloat = 12.0) {
-        let button = MaterialButton(icon: icon, text: text, textColor: textColor, bgColor: rippleColor, cornerRadius: cornerRadius)
+                            textColor: UIColor?, font: UIFont? = nil, rippleColor: UIColor) {
+        let button = MaterialButton(icon: icon, text: text, textColor: textColor, bgColor: rippleColor, cornerRadius: self.cornerRadius)
         button.rippleLayerAlpha = 0.15
         self.segments.append(button)
     }
     
     open func appendTextSegment(text: String, textColor: UIColor?, font: UIFont? = nil,
-                                rippleColor: UIColor, cornerRadius: CGFloat = 12.0) {
-        self.appendSegment(text: text, textColor: textColor, font: font, rippleColor: rippleColor, cornerRadius: cornerRadius)
+                                rippleColor: UIColor) {
+        self.appendSegment(text: text, textColor: textColor, font: font, rippleColor: rippleColor)
     }
     
     func updateViews() {
