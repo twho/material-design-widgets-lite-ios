@@ -31,6 +31,7 @@
 		6863EDF72480CE0C001412EA /* ButtonsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6863EDF52480CE0C001412EA /* ButtonsViewController.xib */; };
 		689575D224808D0B006F319B /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689575D124808D0B006F319B /* MenuViewController.swift */; };
 		689575D424809F2A006F319B /* StoryboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689575D324809F2A006F319B /* StoryboardViewController.swift */; };
+		68B9534724831C9A0049F57A /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301E3161228F52E3000E9BB1 /* DemoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -364,6 +365,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68B9534724831C9A0049F57A /* DemoViewController.swift in Sources */,
 				6863EDF22480CDFE001412EA /* WidgetsViewController.swift in Sources */,
 				689575D424809F2A006F319B /* StoryboardViewController.swift in Sources */,
 				689575D224808D0B006F319B /* MenuViewController.swift in Sources */,

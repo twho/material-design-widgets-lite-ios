@@ -39,7 +39,7 @@ class DemoViewController: UIViewController {
         let width = self.view.frame.width
         
         self.topSegmentControl.heightAnchor.constraint(equalToConstant: 30.0).isActive = true
-        self.topSegmentControl.setAnchors(top: self.view, tConst: 0.1*height,
+        self.topSegmentControl.setAnchors(top: self.view, tConst: 0.05*height,
                                           left: self.view, lConst: 0.05*width,
                                           right: self.view, rConst: -0.05*width)
         self.stackView.setAnchors(left: self.view, lConst: 0.05*width,
@@ -94,13 +94,13 @@ class DemoViewController: UIViewController {
             } else if let segCtrl = type.widget as? MaterialSegmentedControl {
                 switch type {
                 case .segmentedControlFill, .segmentedControlOutline:
-                    setSampleSegments(segmentedControl: segCtrl, radius: 18.0)
+                    setSampleSegments(segmentedControl: segCtrl)
                 case .segmentedControlLineText:
-                    setSampleSegments(segmentedControl: segCtrl, radius: 0.0)
+                    setSampleSegments(segmentedControl: segCtrl)
                 case .segmentedControlLineIcon:
                     let icons = [#imageLiteral(resourceName: "ic_home_fill").colored(.darkGray)!, #imageLiteral(resourceName: "ic_home_fill").colored(.gray)!, #imageLiteral(resourceName: "ic_home_fill").colored(.lightGray)!]
                     for i in 0..<3 {
-                        segCtrl.appendIconSegment(icon: icons[i], preserveIconColor: true, rippleColor: .lightGray, cornerRadius: 0.0)
+                        segCtrl.appendIconSegment(icon: icons[i], preserveIconColor: true, rippleColor: .lightGray)
                     }
                 default:
                     continue
@@ -123,9 +123,9 @@ class DemoViewController: UIViewController {
      - Parameter segmentedControl: The segmented control to put these segments into.
      - Parameter cornerRadius:     The corner radius to be set to segments and selectors.
      */
-    private func setSampleSegments(segmentedControl: MaterialSegmentedControl, radius: CGFloat) {
+    private func setSampleSegments(segmentedControl: MaterialSegmentedControl) {
         for i in 0..<3 {
-            segmentedControl.appendTextSegment(text: "Segment \(i)", textColor: .gray, rippleColor: .lightGray, cornerRadius: radius)
+            segmentedControl.appendTextSegment(text: "Segment \(i)", textColor: .gray, rippleColor: .lightGray)
         }
     }
     
@@ -176,9 +176,9 @@ enum WidgetType: String {
                 // Feel free to tune one by yourself if you still need a outline shadow button.
                 return MaterialButton(text: self.rawValue, cornerRadius: 15.0, withShadow: true, buttonStyle: .fill)
             case .verticalButton:
-                let btn1 = MaterialVerticalButton(icon: #imageLiteral(resourceName: "ic_home_fill"), text: "Fill", cornerRadius: 18.0, buttonStyle: .fill)
-                let btn2 = MaterialVerticalButton(icon: #imageLiteral(resourceName: "ic_home_color"), text: "Color", useOriginalImg: true, cornerRadius: 18.0, buttonStyle: .fill)
-                let btn3 = MaterialVerticalButton(icon: #imageLiteral(resourceName: "ic_home_outline"), text: "Outline", cornerRadius: 18.0, buttonStyle: .outline)
+                let btn1 = MaterialVerticalButton(icon: #imageLiteral(resourceName: "ic_home_fill"), text: "Fill",  preserveIconColor: false, cornerRadius: 18.0, buttonStyle: .fill)
+                let btn2 = MaterialVerticalButton(icon: #imageLiteral(resourceName: "ic_home_color"), text: "Color", cornerRadius: 18.0, buttonStyle: .fill)
+                let btn3 = MaterialVerticalButton(icon: #imageLiteral(resourceName: "ic_home_outline"), text: "Outline",  preserveIconColor: false, cornerRadius: 18.0, buttonStyle: .outline)
                 let stack = UIStackView(arrangedSubviews: [btn1, btn2, btn3], axis: .horizontal, distribution: .fillEqually, spacing: 10.0)
                 return stack
             case .textField:
@@ -186,45 +186,40 @@ enum WidgetType: String {
             case .loadingIndicator:
                 let indicatorBlack = MaterialLoadingIndicator(radius: 15.0, color: .label)
                 let indicatorGray = MaterialLoadingIndicator(radius: 15.0, color: .systemGray3)
-                indicatorBlack.startAnimating()
-                indicatorGray.startAnimating()
                 let stack = UIStackView(arrangedSubviews: [indicatorBlack, indicatorGray], axis: .horizontal, distribution: .fillEqually, spacing: 10.0)
                 return stack
             case .segmentedControlFill:
                 var segCtrl: MaterialSegmentedControl!
-                segCtrl = MaterialSegmentedControl(selectorStyle: .fill, cornerRadius: 18.0)
+                segCtrl = MaterialSegmentedControl(selectorStyle: .fill, cornerRadius: 15.0)
                 return segCtrl
             case .segmentedControlOutline:
-                return MaterialSegmentedControl(selectorStyle: .outline)
+                return MaterialSegmentedControl(selectorStyle: .outline, cornerRadius: 15.0)
             case .segmentedControlLineText:
-                return MaterialSegmentedControl(selectorStyle: .line)
+                return MaterialSegmentedControl(selectorStyle: .line, cornerRadius: 0.0)
             case .segmentedControlLineIcon:
-                return MaterialSegmentedControl(selectorStyle: .line)
+                return MaterialSegmentedControl(selectorStyle: .line, cornerRadius: 0.0)
             }
         } else {
             switch self {
             case .button:
                 let btnLeft = MaterialButton(text: "Button", textColor: .white, bgColor: .black, cornerRadius: 15.0)
-                let btnRight = MaterialButton(text: "Button", textColor: .black, bgColor: .white)
-                btnRight.setCornerBorder(color: .black, cornerRadius: 15.0)
+                let btnRight = MaterialButton(text: "Button", textColor: .black, bgColor: .white, borderColor: .black, cornerRadius: 15.0)
                 let stack = UIStackView(arrangedSubviews: [btnLeft, btnRight], axis: .horizontal, distribution: .fillEqually, spacing: 10.0)
                 return stack
             case .loadingButton:
                 let btnLeft = MaterialButton(text: self.rawValue, textColor: .white, bgColor: .black, cornerRadius: 15.0)
-                let btnRight = MaterialButton(text: self.rawValue, textColor: .black, bgColor: .white, cornerRadius: 15.0)
-                btnRight.setCornerBorder(color: .black, cornerRadius: 15.0)
+                let btnRight = MaterialButton(text: self.rawValue, textColor: .black, bgColor: .white, borderColor: .black, cornerRadius: 15.0)
                 let stack = UIStackView(arrangedSubviews: [btnLeft, btnRight], axis: .horizontal, distribution: .fillEqually, spacing: 10.0)
                 return stack
             case .shadowButton:
                 let btnLeft = MaterialButton(text: self.rawValue,  textColor: .white, bgColor: .black, cornerRadius: 15.0, withShadow: true)
-                let btnRight = MaterialButton(text: self.rawValue, textColor: .black, bgColor: .white, withShadow: true)
-                btnRight.setCornerBorder(color: .black, cornerRadius: 15.0)
+                let btnRight = MaterialButton(text: self.rawValue, textColor: .black, bgColor: .white, borderColor: .black, cornerRadius: 15.0, withShadow: true)
                 let stack = UIStackView(arrangedSubviews: [btnLeft, btnRight], axis: .horizontal, distribution: .fillEqually, spacing: 10.0)
                 return stack
             case .verticalButton:
-                let btn1 = MaterialVerticalButton(icon: #imageLiteral(resourceName: "ic_home_fill"), text: "Fill", foregroundColor: .black, bgColor: .white, cornerRadius: 18.0)
-                let btn2 = MaterialVerticalButton(icon: #imageLiteral(resourceName: "ic_home_color"), text: "Color", foregroundColor: .black, bgColor: .white, useOriginalImg: true, cornerRadius: 18.0)
-                let btn3 = MaterialVerticalButton(icon: #imageLiteral(resourceName: "ic_home_outline"), text: "Outline", foregroundColor: .white, bgColor: .black, cornerRadius: 18.0)
+                let btn1 = MaterialVerticalButton(icon: #imageLiteral(resourceName: "ic_home_fill"), text: "Fill", foregroundColor: .white, bgColor: .black, preserveIconColor: false, cornerRadius: 18.0)
+                let btn2 = MaterialVerticalButton(icon: #imageLiteral(resourceName: "ic_home_color"), text: "Color", foregroundColor: .black, bgColor: .white, cornerRadius: 18.0)
+                let btn3 = MaterialVerticalButton(icon: #imageLiteral(resourceName: "ic_home_outline"), text: "Outline", foregroundColor: .black, bgColor: .clear, borderColor: .black, preserveIconColor: false, cornerRadius: 18.0)
                 let stack = UIStackView(arrangedSubviews: [btn1, btn2, btn3], axis: .horizontal, distribution: .fillEqually, spacing: 10.0)
                 return stack
             case .textField:
@@ -237,16 +232,17 @@ enum WidgetType: String {
                 let stack = UIStackView(arrangedSubviews: [indicatorBlack, indicatorGray], axis: .horizontal, distribution: .fillEqually, spacing: 10.0)
                 return stack
             case .segmentedControlFill:
-                var segCtrl: MaterialSegmentedControl!
-                segCtrl = MaterialSegmentedControl(selectorStyle: .fill, cornerRadius: 18.0,
-                                                   fgColor: .black, selectedFgColor: .white, selectorColor: .black, bgColor: .lightGray)
-                return segCtrl
+                return MaterialSegmentedControl(selectorStyle: .fill, cornerRadius: 15.0,
+                                                fgColor: .black, selectedFgColor: .white, selectorColor: .black, bgColor: .lightGray)
             case .segmentedControlOutline:
-                return MaterialSegmentedControl(selectorStyle: .outline, fgColor: .black, selectedFgColor: .black, selectorColor: .black, bgColor: .white)
+                return MaterialSegmentedControl(selectorStyle: .outline, cornerRadius: 15.0,
+                                                fgColor: .black, selectedFgColor: .black, selectorColor: .black, bgColor: .white)
             case .segmentedControlLineText:
-                return MaterialSegmentedControl(selectorStyle: .line, fgColor: .black, selectedFgColor: .black, selectorColor: .black, bgColor: .white)
+                return MaterialSegmentedControl(selectorStyle: .line, cornerRadius: 0.0,
+                                                fgColor: .black, selectedFgColor: .black, selectorColor: .black, bgColor: .white)
             case .segmentedControlLineIcon:
-                return MaterialSegmentedControl(selectorStyle: .line, fgColor: .black, selectedFgColor: .black, selectorColor: .gray, bgColor: .white)
+                return MaterialSegmentedControl(selectorStyle: .line, cornerRadius: 0.0,
+                                                fgColor: .black, selectedFgColor: .black, selectorColor: .gray, bgColor: .white)
             }
         }
     }

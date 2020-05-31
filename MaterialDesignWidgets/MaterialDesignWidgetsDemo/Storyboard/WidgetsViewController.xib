@@ -26,14 +26,14 @@
                     <rect key="frame" x="16" y="60" width="382" height="794"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Material Design TextField" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ry8-z3-f4N">
-                            <rect key="frame" x="0.0" y="0.0" width="382" height="85.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="382" height="70.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Material Design TextField" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0bQ-oK-AWM" customClass="MaterialTextField" customModule="MaterialDesignWidgets">
-                            <rect key="frame" x="0.0" y="101.5" width="382" height="85"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <rect key="frame" x="0.0" y="80.5" width="382" height="34"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <textInputTraits key="textInputTraits"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="boolean" keyPath="bottomBorderEnabled" value="YES"/>
@@ -43,13 +43,13 @@
                             </userDefinedRuntimeAttributes>
                         </textField>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Segmented Control - Outline" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Hd-o2-gYm">
-                            <rect key="frame" x="0.0" y="202.5" width="382" height="85.5"/>
+                            <rect key="frame" x="0.0" y="161" width="382" height="70"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2cK-Ac-rJo" customClass="MaterialSegmentedControl" customModule="MaterialDesignWidgets">
-                            <rect key="frame" x="0.0" y="304" width="382" height="85"/>
+                            <rect key="frame" x="0.0" y="241" width="382" height="70.5"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="color" keyPath="foregroundColor">
@@ -61,16 +61,19 @@
                                 <userDefinedRuntimeAttribute type="color" keyPath="selectedForegroundColor">
                                     <color key="value" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="15"/>
+                                </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Segmented Control - Line Text" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R7e-DX-oeo">
-                            <rect key="frame" x="0.0" y="607" width="382" height="85.5"/>
+                            <rect key="frame" x="0.0" y="321.5" width="382" height="70.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yG7-n6-DtW" customClass="MaterialSegmentedControl" customModule="MaterialDesignWidgets">
-                            <rect key="frame" x="0.0" y="506.5" width="382" height="85"/>
+                            <rect key="frame" x="0.0" y="402" width="382" height="70.5"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="color" keyPath="foregroundColor">
@@ -82,16 +85,19 @@
                                 <userDefinedRuntimeAttribute type="color" keyPath="selectedForegroundColor">
                                     <color key="value" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="15"/>
+                                </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Segmented Control - Fill" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hod-0R-yzl">
-                            <rect key="frame" x="0.0" y="709" width="382" height="85"/>
+                            <rect key="frame" x="0.0" y="482.5" width="382" height="70.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QHs-DW-3iC" customClass="MaterialSegmentedControl" customModule="MaterialDesignWidgets">
-                            <rect key="frame" x="0.0" y="354" width="382" height="85"/>
+                            <rect key="frame" x="0.0" y="563" width="382" height="70"/>
                             <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="color" keyPath="foregroundColor">
@@ -104,18 +110,18 @@
                                     <color key="value" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </userDefinedRuntimeAttribute>
                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                    <real key="value" value="18"/>
+                                    <real key="value" value="15"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Segmented Control - Line Icon" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q2v-Ms-EX3">
-                            <rect key="frame" x="0.0" y="405" width="382" height="85.5"/>
+                            <rect key="frame" x="0.0" y="643" width="382" height="70.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D4R-9J-Q4N" customClass="MaterialSegmentedControl" customModule="MaterialDesignWidgets">
-                            <rect key="frame" x="0.0" y="354" width="382" height="85"/>
+                            <rect key="frame" x="0.0" y="723.5" width="382" height="70.5"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="color" keyPath="foregroundColor">
@@ -127,6 +133,9 @@
                                 <userDefinedRuntimeAttribute type="color" keyPath="selectedForegroundColor">
                                     <color key="value" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="15"/>
+                                </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </view>
                     </subviews>
@@ -134,9 +143,9 @@
             </subviews>
             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="6BX-Xb-Qra" secondAttribute="bottom" constant="8" id="3ls-VR-Drn"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="6BX-Xb-Qra" secondAttribute="bottom" constant="16" id="3ls-VR-Drn"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="6BX-Xb-Qra" secondAttribute="trailing" constant="16" id="GMX-XL-2WT"/>
-                <constraint firstItem="6BX-Xb-Qra" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="16" id="RRI-Fw-u8D"/>
+                <constraint firstItem="6BX-Xb-Qra" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="8" id="RRI-Fw-u8D"/>
                 <constraint firstItem="6BX-Xb-Qra" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="wH1-Fy-hDt"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
