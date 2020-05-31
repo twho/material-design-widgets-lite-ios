@@ -15,10 +15,21 @@ open class MaterialButton: UIButton {
             rippleLayer.maskEnabled = maskEnabled
         }
     }
+    /**
+     The corner radius of the button. Used to round the corner.
+    */
     @IBInspectable open var cornerRadius: CGFloat = 0.0 {
         didSet {
-            self.setCornerBorder(cornerRadius: cornerRadius)
+            self.setCornerBorder(color: borderColor, cornerRadius: cornerRadius)
             rippleLayer.superLayerDidResize()
+        }
+    }
+    /**
+     The border color of the button. The default value is set to transparent.
+    */
+    @IBInspectable open var borderColor: UIColor = .clear {
+        didSet {
+            self.setCornerBorder(color: borderColor, cornerRadius: cornerRadius)
         }
     }
     @IBInspectable open var elevation: CGFloat = 0 {
@@ -66,6 +77,17 @@ open class MaterialButton: UIButton {
             rippleLayer.backgroundAnimationEnabled = backgroundAnimationEnabled
         }
     }
+    /**
+     The boolean to determine if the button shows a shadow.
+     */
+    @IBInspectable public var withShadow: Bool = false {
+        didSet {
+            resetShadow()
+        }
+    }
+    /**
+     The background color of the button.
+     */
     @IBInspectable open var bgColor: UIColor = .darkGray {
         didSet {
             self.backgroundColor = bgColor
@@ -81,7 +103,6 @@ open class MaterialButton: UIButton {
     }
     
     public var shadowAdded: Bool = false
-    public var withShadow: Bool = false
     var shadowLayer: UIView?
     private var loaderWorkItem: DispatchWorkItem?
     
@@ -118,7 +139,7 @@ open class MaterialButton: UIButton {
      - Parameter withShadow:   set true to show the shadow of the button.
      */
     public convenience init(icon: UIImage? = nil, text: String? = nil, font: UIFont? = nil,
-                            textColor: UIColor?, bgColor: UIColor,
+                            textColor: UIColor?, bgColor: UIColor, borderColor: UIColor? = nil,
                             cornerRadius: CGFloat = 0.0, withShadow: Bool = false) {
         self.init()
         
@@ -141,14 +162,17 @@ open class MaterialButton: UIButton {
             self.indicator.color = .white
         }
         
-        defer {
-            self.bgColor = bgColor
-        }
-        
         self.setBackgroundImage(UIImage(color: .lightGray), for: .disabled)
         self.contentEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
+        
+        // Execute immediately
         defer {
+            // Set border and corner radius
             self.cornerRadius = cornerRadius
+            if let borderColor = borderColor {
+                self.borderColor = borderColor
+            }
+            self.bgColor = bgColor
         }
         self.withShadow = withShadow
         setupLayer()
@@ -173,8 +197,8 @@ open class MaterialButton: UIButton {
             self.init(icon: icon, text: text, font: font, textColor: .label, bgColor: .systemGray3,
                       cornerRadius: cornerRadius, withShadow: withShadow)
         case .outline:
-            self.init(icon: icon, text: text, font: font, textColor: .label, bgColor: .clear, withShadow: withShadow)
-            self.setCornerBorder(color: .label, cornerRadius: cornerRadius)
+            self.init(icon: icon, text: text, font: font, textColor: .label, bgColor: .clear, borderColor: .label,
+                      cornerRadius: cornerRadius, withShadow: withShadow)
         }
         self.indicator.color = .label
     }
@@ -318,6 +342,10 @@ open class MaterialButton: UIButton {
     }
 
     open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        resetShadow()
+    }
+    
+    private func resetShadow() {
         if let shadowLayer = shadowLayer  {
             shadowLayer.removeFromSuperview()
             shadowAdded = false

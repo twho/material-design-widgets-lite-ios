@@ -14,7 +14,31 @@ import UIKit
 open class MaterialVerticalButton: UIControl {
     
     open var imageView: UIImageView!
+    /**
+     The icon of the button. Made exposed to storyboard.
+    */
+    @IBInspectable open var icon: UIImage = UIImage() {
+        didSet {
+            self.imageView.image = self.icon
+        }
+    }
+    /**
+     The boolean to set whether the segment control displays the original color of the icon.
+     */
+    @IBInspectable public var preserveIconColor: Bool = false {
+        didSet {
+            self.icon = preserveIconColor ? self.icon : self.icon.colored(foregroundColor)!
+        }
+    }
     open var label: UILabel!
+    /**
+     The title of the button. Made exposed to storyboard.
+    */
+    @IBInspectable open var text: String = "" {
+        didSet {
+            self.label.text = text
+        }
+    }
     
     private var imgHeightContraint: NSLayoutConstraint?
     
@@ -23,10 +47,21 @@ open class MaterialVerticalButton: UIControl {
             rippleLayer.elevation = elevation
         }
     }
+    /**
+     The corner radius of the button. Used to round the corner.
+    */
     @IBInspectable open var cornerRadius: CGFloat = 0 {
         didSet {
-            self.layer.cornerRadius = cornerRadius
+            self.setCornerBorder(color: borderColor, cornerRadius: cornerRadius)
             rippleLayer.superLayerDidResize()
+        }
+    }
+    /**
+     The border color of the button. The default value is set to transparent.
+     */
+    @IBInspectable open var borderColor: UIColor = .clear {
+        didSet {
+            self.setCornerBorder(color: borderColor, cornerRadius: cornerRadius)
         }
     }
     @IBInspectable open var shadowOffset: CGSize = .zero {
@@ -83,7 +118,24 @@ open class MaterialVerticalButton: UIControl {
         case fill
         case outline
     }
-    
+    /**
+     The background color of the button.
+    */
+    @IBInspectable open var bgColor: UIColor = .darkGray {
+        didSet {
+            self.backgroundColor = bgColor
+        }
+    }
+    /**
+     The foreground color of the button.
+    */
+    @IBInspectable open var foregroundColor: UIColor = .white {
+        didSet {
+            self.label.textColor = foregroundColor
+            self.icon = preserveIconColor ? icon : icon.colored(foregroundColor)!
+        }
+    }
+  
     open lazy var rippleLayer: RippleLayer = RippleLayer(withView: self)
     
     override public init(frame: CGRect) {
@@ -99,6 +151,7 @@ open class MaterialVerticalButton: UIControl {
     private func defaultSetup() {
         imageView = UIImageView()
         label = UILabel()
+        label.textAlignment = .center
         setupLayer()
         addViews()
     }
@@ -114,19 +167,25 @@ open class MaterialVerticalButton: UIControl {
      - Parameter cornerRadius:    The corner radius of the button. Used to set rounded corner.
     */
     public convenience init(icon: UIImage, text: String, font: UIFont? = nil,
-                            foregroundColor: UIColor, bgColor: UIColor = .white,
-                            useOriginalImg: Bool = false, cornerRadius: CGFloat = 0.0) {
+                            foregroundColor: UIColor, bgColor: UIColor, borderColor: UIColor? = nil,
+                            preserveIconColor: Bool = true, cornerRadius: CGFloat = 0.0) {
         self.init()
-        imageView = UIImageView(image: useOriginalImg ? icon : icon.colored(foregroundColor))
-        label = UILabel()
-        label.text = text
-        label.textColor = foregroundColor
-        label.textAlignment = .center
+        
         if let font = font {
             label.font = font
         }
-        self.cornerRadius = cornerRadius
-        self.setCornerBorder(cornerRadius: cornerRadius)
+        
+        defer {
+            self.label.text = text
+            self.icon = icon
+            self.preserveIconColor = preserveIconColor
+            self.foregroundColor = foregroundColor
+            self.cornerRadius = cornerRadius
+            if let borderColor = borderColor {
+                self.borderColor = borderColor
+            }
+        }
+        
         self.backgroundColor = bgColor
         setupLayer()
         addViews()
@@ -144,15 +203,14 @@ open class MaterialVerticalButton: UIControl {
     */
     @available(iOS 13.0, *)
     public convenience init(icon: UIImage, text: String, font: UIFont? = nil,
-                            useOriginalImg: Bool = false, cornerRadius: CGFloat = 0.0, buttonStyle: VerticalButtonStyle) {
+                            preserveIconColor: Bool = true, cornerRadius: CGFloat = 0.0, buttonStyle: VerticalButtonStyle) {
         switch buttonStyle {
         case .fill:
             self.init(icon: icon, text: text, font: font, foregroundColor: .label, bgColor: .systemGray3,
-                      useOriginalImg: useOriginalImg, cornerRadius: cornerRadius)
+                      preserveIconColor: preserveIconColor, cornerRadius: cornerRadius)
         case .outline:
-            self.init(icon: icon, text: text, font: font, foregroundColor: .label, bgColor: .clear,
-                      useOriginalImg: useOriginalImg, cornerRadius: cornerRadius)
-            self.setCornerBorder(color: .label, cornerRadius: cornerRadius)
+            self.init(icon: icon, text: text, font: font, foregroundColor: .label, bgColor: .clear, borderColor: .label,
+                      preserveIconColor: preserveIconColor, cornerRadius: cornerRadius)
         }
     }
     
