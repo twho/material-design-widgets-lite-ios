@@ -62,6 +62,13 @@ class DemoViewController: UIViewController {
         topSegmentDidChange(topSegmentControl)
     }
     /**
+     traitCollectionDidChange is called when user switch between dark and light mode. Whenever this is
+     called, reset the UI.
+     */
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        topSegmentDidChange(self.topSegmentControl)
+    }
+    /**
      Reload demo app UI.
     
     - Parameter widgetTypes: The widget type to display.

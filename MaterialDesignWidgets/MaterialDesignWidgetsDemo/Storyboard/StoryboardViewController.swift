@@ -29,13 +29,21 @@ class StoryboardViewController: UIViewController {
         buttonsView.setAnchors(top: self.contentView, bottom: self.contentView,
                                left: self.contentView, right: self.contentView)
     }
-    
+    // viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
         topSegmentedControl.selectedSegmentIndex = 0
         topSegmentDidChange(topSegmentedControl)
         self.hideKeyboardWhenTappedAround()
+    }
+    /**
+     traitCollectionDidChange is called when user switch between dark and light mode. Whenever this is
+     called, reset the UI.
+     */
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        loadView()
+        viewDidLoad()
     }
     
     @IBAction func topSegmentDidChange(_ sender: UISegmentedControl) {

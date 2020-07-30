@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -122,6 +122,9 @@
                                         <userDefinedRuntimeAttribute type="image" keyPath="icon" value="ic_home_fill"/>
                                         <userDefinedRuntimeAttribute type="string" keyPath="text" value="Fill"/>
                                         <userDefinedRuntimeAttribute type="boolean" keyPath="preserveIconColor" value="NO"/>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="foregroundColor">
+                                            <color key="value" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JHJ-Kd-eRQ" customClass="MaterialVerticalButton" customModule="MaterialDesignWidgets">
@@ -148,8 +151,8 @@
                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                             <real key="value" value="15"/>
                                         </userDefinedRuntimeAttribute>
-                                        <userDefinedRuntimeAttribute type="image" keyPath="icon" value="ic_home_fill"/>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="text" value="Fill"/>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="icon" value="ic_home_outline"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="text" value="Outline"/>
                                         <userDefinedRuntimeAttribute type="boolean" keyPath="preserveIconColor" value="NO"/>
                                         <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                             <color key="value" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -228,5 +231,6 @@
     <resources>
         <image name="ic_home_color" width="24" height="24"/>
         <image name="ic_home_fill" width="24" height="24"/>
+        <image name="ic_home_outline" width="24" height="24"/>
     </resources>
 </document>
