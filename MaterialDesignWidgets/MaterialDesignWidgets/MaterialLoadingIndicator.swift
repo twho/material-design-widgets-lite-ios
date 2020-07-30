@@ -86,7 +86,6 @@ open class MaterialLoadingIndicator: UIView {
         self.drawableLayer.strokeEnd = 1
         updateFrame()
         updatePath()
-        startAnimating()
     }
     
     fileprivate func updateFrame() {

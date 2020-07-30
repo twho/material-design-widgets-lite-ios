@@ -31,13 +31,14 @@ class DemoViewController: UIViewController {
     // loadView
     override func loadView() {
         super.loadView()
+        // Init views
         topSegmentControl = UISegmentedControl(items: ["Widgets", "Buttons"])
         stackView = UIStackView(axis: .vertical, distribution: .fill, spacing: self.view.frame.height * 0.01)
         self.view.addSubViews([topSegmentControl, stackView])
+        
         // AutoLayout
         let height = self.view.frame.height
         let width = self.view.frame.width
-        
         self.topSegmentControl.heightAnchor.constraint(equalToConstant: 30.0).isActive = true
         self.topSegmentControl.setAnchors(top: self.view, tConst: 0.05*height,
                                           left: self.view, lConst: 0.05*width,
@@ -166,6 +167,7 @@ enum WidgetType: String {
     case segmentedControlLineIcon = "Segmented Control - Line Icon"
     
     var widget: UIView {
+        // The iOS 13.0 block tunes for light/dark mode switch
         if #available(iOS 13.0, *) {
             switch self {
             case .button:
@@ -193,8 +195,9 @@ enum WidgetType: String {
             case .loadingIndicator:
                 let indicatorBlack = MaterialLoadingIndicator(radius: 15.0, color: .label)
                 let indicatorGray = MaterialLoadingIndicator(radius: 15.0, color: .systemGray3)
-                let stack = UIStackView(arrangedSubviews: [indicatorBlack, indicatorGray], axis: .horizontal, distribution: .fillEqually, spacing: 10.0)
-                return stack
+                indicatorBlack.startAnimating()
+                indicatorGray.startAnimating()
+                return UIStackView(arrangedSubviews: [indicatorBlack, indicatorGray], axis: .horizontal, distribution: .fillEqually, spacing: 10.0)
             case .segmentedControlFill:
                 var segCtrl: MaterialSegmentedControl!
                 segCtrl = MaterialSegmentedControl(selectorStyle: .fill, cornerRadius: 15.0)
@@ -207,6 +210,7 @@ enum WidgetType: String {
                 return MaterialSegmentedControl(selectorStyle: .line, cornerRadius: 0.0)
             }
         } else {
+            // This is for versions below iOS 13 that assumes a white background color
             switch self {
             case .button:
                 let btnLeft = MaterialButton(text: "Button", textColor: .white, bgColor: .black, cornerRadius: 15.0)
@@ -236,8 +240,7 @@ enum WidgetType: String {
                 let indicatorGray = MaterialLoadingIndicator(radius: 15.0, color: .gray)
                 indicatorBlack.startAnimating()
                 indicatorGray.startAnimating()
-                let stack = UIStackView(arrangedSubviews: [indicatorBlack, indicatorGray], axis: .horizontal, distribution: .fillEqually, spacing: 10.0)
-                return stack
+                return UIStackView(arrangedSubviews: [indicatorBlack, indicatorGray], axis: .horizontal, distribution: .fillEqually, spacing: 10.0)
             case .segmentedControlFill:
                 return MaterialSegmentedControl(selectorStyle: .fill, cornerRadius: 15.0,
                                                 fgColor: .black, selectedFgColor: .white, selectorColor: .black, bgColor: .lightGray)
