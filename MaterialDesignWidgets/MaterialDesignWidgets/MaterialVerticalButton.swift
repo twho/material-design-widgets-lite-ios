@@ -119,14 +119,6 @@ open class MaterialVerticalButton: UIControl {
         case outline
     }
     /**
-     The background color of the button.
-    */
-    @IBInspectable open var bgColor: UIColor = .darkGray {
-        didSet {
-            self.backgroundColor = bgColor
-        }
-    }
-    /**
      The foreground color of the button.
     */
     @IBInspectable open var foregroundColor: UIColor = .white {
@@ -184,9 +176,9 @@ open class MaterialVerticalButton: UIControl {
             if let borderColor = borderColor {
                 self.borderColor = borderColor
             }
+            self.backgroundColor = bgColor
         }
         
-        self.backgroundColor = bgColor
         setupLayer()
         addViews()
     }

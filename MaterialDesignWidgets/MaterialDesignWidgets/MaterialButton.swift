@@ -86,14 +86,6 @@ open class MaterialButton: UIButton {
         }
     }
     /**
-     The background color of the button.
-     */
-    @IBInspectable open var bgColor: UIColor = .darkGray {
-        didSet {
-            self.backgroundColor = bgColor
-        }
-    }
-    /**
      Button style for light mode and dark mode use. Only available on iOS 13 or later.
      */
     @available(iOS 13.0, *)
@@ -172,7 +164,7 @@ open class MaterialButton: UIButton {
             if let borderColor = borderColor {
                 self.borderColor = borderColor
             }
-            self.bgColor = bgColor
+            self.backgroundColor = bgColor
         }
         self.withShadow = withShadow
         setupLayer()
