@@ -195,8 +195,6 @@ enum WidgetType: String {
             case .loadingIndicator:
                 let indicatorBlack = MaterialLoadingIndicator(radius: 15.0, color: .label)
                 let indicatorGray = MaterialLoadingIndicator(radius: 15.0, color: .systemGray3)
-                indicatorBlack.startAnimating()
-                indicatorGray.startAnimating()
                 return UIStackView(arrangedSubviews: [indicatorBlack, indicatorGray], axis: .horizontal, distribution: .fillEqually, spacing: 10.0)
             case .segmentedControlFill:
                 var segCtrl: MaterialSegmentedControl!
@@ -238,8 +236,6 @@ enum WidgetType: String {
             case .loadingIndicator:
                 let indicatorBlack = MaterialLoadingIndicator(radius: 15.0, color: .black)
                 let indicatorGray = MaterialLoadingIndicator(radius: 15.0, color: .gray)
-                indicatorBlack.startAnimating()
-                indicatorGray.startAnimating()
                 return UIStackView(arrangedSubviews: [indicatorBlack, indicatorGray], axis: .horizontal, distribution: .fillEqually, spacing: 10.0)
             case .segmentedControlFill:
                 return MaterialSegmentedControl(selectorStyle: .fill, cornerRadius: 15.0,
