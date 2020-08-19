@@ -4,7 +4,7 @@
 ## Material Design Widgets - Lightweight
 This framework give you full flexibility to apply any material design widget you would like to use in your app! Please see below steps if you only need to use one or two of the entire package widgets. 
 
-[![Generic badge](https://img.shields.io/badge/Swift-5.0-orange.svg)](https://shields.io/) [![Generic badge](https://img.shields.io/badge/iOS-11.0+-blue.svg)](https://shields.io/)  [![Generic badge](https://img.shields.io/badge/Version-0.1.1-orange.svg)](https://shields.io/) [![Generic badge](https://img.shields.io/badge/pod-1.9.2-lightgrey.svg)](https://shields.io/) [
+[![Generic badge](https://img.shields.io/badge/Swift-5.0-orange.svg)](https://shields.io/) [![Generic badge](https://img.shields.io/badge/iOS-11.0+-blue.svg)](https://shields.io/)  [![Generic badge](https://img.shields.io/badge/Version-0.1.2-orange.svg)](https://shields.io/) [![Generic badge](https://img.shields.io/badge/pod-1.9.3-lightgrey.svg)](https://shields.io/) [
 ![Generic badge](https://img.shields.io/badge/platform-ios-green.svg)](https://shields.io/) 
 
 | Light mode |  Dark mode |
@@ -18,6 +18,7 @@ You may download **MaterialDesignWidgetsDemo** to see how its used in your app.
 - Widget classes are made to be **open**, which gives you flexibility to create your own.
 - Instead of pull down the entire package, you can also copy the source of any widget you need independently.
 - If you decide to just use one of the widgets, you can follow below **usage** for instructions on which files you need for that specific widget.
+- We support **storyboard**! Check demo project for more implementation details.
 
 ## Requirements
 - Swift 5.0
@@ -161,6 +162,19 @@ indicatorGray.startAnimating()
 | Light mode |  Dark mode |
 |:--:| :--:|
 | <img src="gif/loading-light.gif" alt="Loading Indicator" width="350"/> | <img src="gif/loading-dark.gif" alt="Loading Indicator" width="350"/> | 
+
+## Storyboard Usage
+### Use Material Button as an example
+
+#### Steps
+1. Create a **UIButton** in your storyboard.
+2. In **Identity inspector** tab, set the **Class** to **MaterialButton** and **Module** to **MaterialDesignWidgets**.
+<img src="gif/storyboard-step1.png" alt="Storyboard class and module configuration" height="400"/> 
+
+3. In **Attributes inspector** tab, set the attributes that are specific to **Material Button**.
+<img src="gif/storyboard-step2.png" alt="Storyboard class and module configuration" height="400"/> 
+
+4. Run your app to see if those attributes are applied!
 
 ## Credits
 * [Material Design](https://material.io/design/)
