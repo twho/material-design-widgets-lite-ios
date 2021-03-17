@@ -229,9 +229,11 @@ open class MaterialSegmentedControl: UIControl {
             let image = btn.image(for: .normal)
             btn.setTitleColor(foregroundColor, for: .normal)
             btn.setImage(preserveIconColor ? image : image?.colored(foregroundColor))
+            btn.isSelected = false
             
             if btn.tag == button.tag {
                 selectedSegmentIndex = idx
+                btn.isSelected = true
                 btn.setImage(preserveIconColor ? image : image?.colored(selectedForegroundColor))
                 btn.setTitleColor(selectorStyle == .line ? foregroundColor : selectedForegroundColor, for: .normal)
                 moveView(selector, toX: btn.frame.origin.x)
